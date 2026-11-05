@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Typesetter — Making global communication easy</title>
+  <link rel="icon" type="image/png" href="assets/img/logo-tts-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&family=Nunito:wght@300;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="page" id="page">
+
+    <!-- Línea de colores que se dibuja con el scroll (solo escritorio) -->
+    <svg class="worm" id="worm" width="1244" height="4000" aria-hidden="true"></svg>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="hero" data-screen-label="Hero">
+      <div class="hero-inner">
+        <div class="hero-bands">
+          <div class="band band--first" style="--c:var(--g)"></div>
+          <div class="band" style="--c:var(--m)"></div>
+          <div class="band" style="--c:var(--t)"></div>
+          <div class="band band--last" style="--c:var(--o)"></div>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-brand">
+            <img class="hero-logo" src="assets/img/logo-tts-color.png" alt="the typesetter">
+            <h1 class="hero-title">Making global<br><span class="nowrap">communication <b>easy</b></span></h1>
+          </div>
+
+          <nav class="hero-nav at-top" id="nav" aria-label="Main">
+            <ul>
+              <li><a class="nav-link" href="#services" style="--c:var(--g)"><span class="nav-bar"></span><span class="nav-pill"></span><span class="nav-dot"></span><span class="nav-label">Services</span></a></li>
+              <li><a class="nav-link" href="#methodology" style="--c:var(--m)"><span class="nav-bar"></span><span class="nav-pill"></span><span class="nav-dot"></span><span class="nav-label">Methodology</span></a></li>
+              <li><a class="nav-link" href="#brand-evolution" style="--c:var(--t)"><span class="nav-bar"></span><span class="nav-pill"></span><span class="nav-dot"></span><span class="nav-label">Our Brand Evolution</span></a></li>
+              <li><a class="nav-link" href="#contact" style="--c:var(--o)"><span class="nav-bar"></span><span class="nav-pill"></span><span class="nav-dot"></span><span class="nav-label">Contact Us</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="tagline" data-screen-label="Tagline"></section>
+
+    <!-- ============ EXPERTISE ============ -->
+    <section class="expertise" id="services" data-screen-label="Expertise">
+      <h2 class="expertise-title">Expertise</h2>
+
+      <div class="ex-grid" id="exGrid">
+        <article class="ex-card" style="--c:var(--m)" tabindex="0">
+          <div class="ex-body">
+            <h3 class="ex-title">Content<br>Globalization</h3>
+            <div class="ex-more">
+              <p class="ex-sub">Translation, Multilingual DTP, Video localization, Subtitling, Voice-over, Dubbing.</p>
+              <p class="ex-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p class="ex-info">Info proyecto</p>
+            </div>
+          </div>
+        </article>
+        <article class="ex-card" style="--c:var(--g)" tabindex="0">
+          <div class="ex-body">
+            <h3 class="ex-title">Digital<br>Accessibility</h3>
+            <div class="ex-more">
+              <p class="ex-sub">Lorem ipsum, Dolor sit amet, Consectetur, Adipiscing elit.</p>
+              <p class="ex-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p class="ex-info">Info proyecto</p>
+            </div>
+          </div>
+        </article>
+        <article class="ex-card" style="--c:var(--o)" tabindex="0">
+          <div class="ex-body">
+            <h3 class="ex-title">Video<br>Production</h3>
+            <div class="ex-more">
+              <p class="ex-sub">Lorem ipsum, Dolor sit amet, Consectetur, Adipiscing elit.</p>
+              <p class="ex-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p class="ex-info">Info proyecto</p>
+            </div>
+          </div>
+        </article>
+        <article class="ex-card" style="--c:var(--t)" tabindex="0">
+          <div class="ex-body">
+            <h3 class="ex-title">Brand<br>&amp; Marketing</h3>
+            <div class="ex-more">
+              <p class="ex-sub">Lorem ipsum, Dolor sit amet, Consectetur, Adipiscing elit.</p>
+              <p class="ex-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p class="ex-info">Info proyecto</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="features">
+        <div class="feature feature--lang" style="--c:var(--g)">
+          <div class="feature-bg"></div>
+          <div class="feature-icon">
+            <svg width="70" height="70" viewBox="0 0 70 70" fill="#ABD125" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+              <g class="ic-1"><path d="M34 12h24a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5h-1v7l-8-7H34a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5z"/><path d="M40 18.5h12M46 16v2.5M49.5 18.5c-.8 5.5-4.4 9.4-9.5 11M42.6 22c1.6 3.4 4.6 6.2 8.6 7.6" fill="none"/></g>
+              <g class="ic-2"><path d="M10 27h24a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5H21l-8 7v-7h-3a5 5 0 0 1-5-5V32a5 5 0 0 1 5-5z"/><path d="M16 46l6-13.5L28 46M18.2 41h7.6" fill="none"/></g>
+            </svg>
+          </div>
+          <h3 class="feature-title">Any Languages</h3>
+          <p class="feature-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <div class="feature feature--format" style="--c:var(--m)">
+          <div class="feature-bg"></div>
+          <div class="feature-icon">
+            <svg width="70" height="70" viewBox="0 0 70 70" fill="#E51A54" stroke="#fff" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round">
+              <g class="ic-1"><rect x="24" y="7" width="23" height="30" rx="2.5" transform="rotate(-10 35.5 22)"/><path d="M29.5 15l12-2.1M30.2 19.5l12-2.1M30.9 24l12-2.1M31.6 28.5l7.5-1.3" fill="none"/></g>
+              <g class="ic-2"><rect x="40" y="19" width="23" height="18" rx="2.5" transform="rotate(16 51.5 28)"/><circle cx="54.5" cy="25.5" r="2.2" fill="none"/><path d="M41.5 33.5l6-5.5 4.5 4.2 3-2.4 5 4.3" fill="none"/></g>
+              <g class="ic-3"><rect x="6" y="25" width="22" height="17" rx="2.5"/><path d="M17 38.5l-4.8-4.7a2.7 2.7 0 0 1 4.8-2.7 2.7 2.7 0 0 1 4.8 2.7z"/></g>
+              <g class="ic-4"><rect x="21" y="37" width="25" height="20" rx="2.5"/><path d="M30 42.5v9.5l8-4.75z"/></g>
+            </svg>
+          </div>
+          <h3 class="feature-title">Every Format</h3>
+          <p class="feature-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <div class="feature feature--tools" style="--c:var(--o)">
+          <div class="feature-bg"></div>
+          <div class="feature-icon">
+            <svg width="70" height="70" viewBox="0 0 70 70" fill="#FFAB00" stroke="#fff" stroke-width="2.3" stroke-linejoin="round">
+              <g class="ic-1"><path d="M37.83 19.10L38.53 21.40L42.85 21.74L42.85 26.26L38.53 26.60L37.83 28.90L36.70 31.03L39.51 34.31L36.31 37.51L33.03 34.70L30.90 35.83L28.60 36.53L28.26 40.85L23.74 40.85L23.40 36.53L21.10 35.83L18.97 34.70L15.69 37.51L12.49 34.31L15.30 31.03L14.17 28.90L13.47 26.60L9.15 26.26L9.15 21.74L13.47 21.40L14.17 19.10L15.30 16.97L12.49 13.69L15.69 10.49L18.97 13.30L21.10 12.17L23.40 11.47L23.74 7.15L28.26 7.15L28.60 11.47L30.90 12.17L33.03 13.30L36.31 10.49L39.51 13.69L36.70 16.97Z"/><circle cx="26" cy="24" r="5.5"/></g>
+              <g class="ic-2"><path d="M59.65 31.83L60.34 33.78L63.85 34.02L63.85 37.98L60.34 38.22L59.65 40.17L58.56 41.92L60.56 44.81L57.47 47.28L55.09 44.69L53.14 45.36L51.09 45.60L50.07 48.97L46.21 48.09L46.76 44.61L45.01 43.51L43.55 42.05L40.28 43.36L38.57 39.79L41.62 38.05L41.40 36.00L41.62 33.95L38.57 32.21L40.28 28.64L43.55 29.95L45.01 28.49L46.76 27.39L46.21 23.91L50.07 23.03L51.09 26.40L53.14 26.64L55.09 27.31L57.47 24.72L60.56 27.19L58.56 30.08Z"/><circle cx="51" cy="36" r="4.2"/></g>
+              <g class="ic-3"><path d="M34.93 47.00L35.71 48.85L38.83 49.05L38.83 52.95L35.71 53.15L34.93 55.00L33.72 56.60L35.10 59.40L31.73 61.35L29.99 58.75L28.00 59.00L26.01 58.75L24.27 61.35L20.90 59.40L22.28 56.60L21.07 55.00L20.29 53.15L17.17 52.95L17.17 49.05L20.29 48.85L21.07 47.00L22.28 45.40L20.90 42.60L24.27 40.65L26.01 43.25L28.00 43.00L29.99 43.25L31.73 40.65L35.10 42.60L33.72 45.40Z"/><circle cx="28" cy="51" r="3.6"/></g>
+            </svg>
+          </div>
+          <h3 class="feature-title">All Tools</h3>
+          <p class="feature-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ METHODOLOGY ============ -->
+    <section class="method" id="methodology" data-screen-label="Methodology">
+      <h2 class="method-title">Methodology</h2>
+
+      <div class="steps">
+        <div class="step step--1" style="--c:var(--g)">
+          <div class="step-label">Pre-production</div>
+          <div class="step-num">01</div>
+          <p class="step-text">file prep, recreation, origination, creación de SRT, limpieza de archivos, conversión de PDF a InDesign/Word editable, extracción de texto de imágenes, adaptación de diseño</p>
+        </div>
+        <div class="step step--2" style="--c:var(--t)">
+          <div class="step-label">Production</div>
+          <div class="step-num">02</div>
+          <p class="step-text">file prep, recreation, origination, creación de SRT, limpieza de archivos, conversión de PDF a InDesign/Word editable, extracción de texto de imágenes, adaptación de diseño</p>
+        </div>
+        <div class="step step--3" style="--c:var(--m)">
+          <div class="step-label">Post - production</div>
+          <div class="step-num">03</div>
+          <p class="step-text">file prep, recreation, origination, creación de SRT, limpieza de archivos, conversión de PDF a InDesign/Word editable, extracción de texto de imágenes</p>
+        </div>
+        <div class="step step--4" style="--c:var(--o)">
+          <div class="step-label">Compliance</div>
+          <div class="step-num">04</div>
+          <p class="step-text">file prep, recreation, origination, creación de SRT, limpieza de archivos, conversión de PDF a InDesign/Word editable</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BRAND EVOLUTION + CONTACT ============ -->
+    <section class="showcase">
+      <h2 class="showcase-title" id="brand-evolution" data-screen-label="Brand Evolution">Our Brand Evolution</h2>
+      <div class="video" id="brandVideo">
+        <video class="video-media" muted playsinline loop preload="none" poster="assets/video/tts-intro-poster.jpg" aria-label="The Typesetter brand evolution video">
+          <source data-src="assets/video/tts-intro-1080.webm" type="video/webm" media="(min-width: 768px)">
+          <source data-src="assets/video/tts-intro-1080.mp4" type="video/mp4" media="(min-width: 768px)">
+          <source data-src="assets/video/tts-intro-720.mp4" type="video/mp4">
+        </video>
+        <button class="video-play" type="button" aria-label="Play video">
+          <svg width="104" height="118" viewBox="0 0 104 118" aria-hidden="true"><path d="M8 14 Q8 2 19 8 L96 52 Q104 59 96 66 L19 110 Q8 116 8 104 Z" fill="#C1C1C1" stroke="#C1C1C1" stroke-width="8" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="video-sound" type="button" aria-pressed="false">Sound off</button>
+      </div>
+
+      <div class="stripes" aria-hidden="true">
+        <div class="stripe stripe--first" style="--c:var(--g)"></div>
+        <div class="stripe" style="--c:var(--m)"></div>
+        <div class="stripe" style="--c:var(--t)"></div>
+        <div class="stripe stripe--last" style="--c:var(--o)"></div>
+      </div>
+
+      <div class="contact" id="contact" data-screen-label="Contact">
+        <h2 class="contact-title">Contact us</h2>
+        <form class="contact-form" id="contactForm" novalidate>
+          <input class="field" name="name" placeholder="Name" aria-label="Name">
+          <input class="field" name="email" type="email" placeholder="E-mail" aria-label="E-mail">
+          <div class="field-row">
+            <input class="field" name="phone" type="tel" placeholder="Phone" aria-label="Phone">
+            <input class="field" name="company" placeholder="Company" aria-label="Company">
+          </div>
+          <textarea class="field field--area" name="message" aria-label="Message"></textarea>
+          <button class="send" type="button" id="sendBtn"><span class="send-label">Send</span></button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="footer-grid">
+        <img class="footer-logo" src="assets/img/logo-tts-color.png" alt="the typesetter">
+        <div class="footer-col">
+          <div class="footer-head">Our offices</div>
+          <div>Córdoba, Argentina<br>Nazaret 2887, Piso 3 oficina 22<br>Phone: +54 351 489 0206</div>
+          <div class="footer-office">Florida, USA<br>255 Aragon Avenue, 2nd Floor<br>Coral Gables, 33134<br>Phone: +1 (904) 807 4554</div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-head footer-head--tight">Contact us at:</div>
+          <a class="footer-mail" href="mailto:clientsuccessteam@thetypesetter.com.ar">clientsuccessteam@thetypesetter.com.ar</a>
+          <div class="footer-head footer-head--quality">Our Quality Policy</div>
+          <img class="footer-cert" src="assets/img/tuv-certified.png" alt="TÜV Rheinland Certified — ISO 9001:2015, ISO 17100:2015">
+        </div>
+      </div>
+      <div class="footer-bar"></div>
+    </footer>
+
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
