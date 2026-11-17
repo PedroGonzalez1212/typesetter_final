@@ -472,7 +472,7 @@ textarea::placeholder { color: #d9d9d4; }
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(0, 0, 0, .18);
 }
-.video-sound[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.video-sound.is-on { background: var(--ink); color: #fff; }
 .video-sound:focus-visible { outline: 2px solid var(--t); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .video-play svg { transition: none; }
@@ -651,7 +651,8 @@ textarea::placeholder { color: #d9d9d4; }
   position: relative;
   font-weight: 700;
 }
-.send:disabled { cursor: default; opacity: .7; }
+.send:disabled,
+.send[aria-disabled="true"] { cursor: default; opacity: .7; }
 .field[aria-invalid="true"] { border-color: var(--o); }
 .form-status {
   min-height: 1.4em;
@@ -660,7 +661,6 @@ textarea::placeholder { color: #d9d9d4; }
   color: #fff;
   font: 400 14px 'Titillium Web', sans-serif;
 }
-.form-status:empty { display: none; }
 
 /* ---------- Footer ---------- */
 .footer {
@@ -681,6 +681,7 @@ textarea::placeholder { color: #d9d9d4; }
   display: block;
 }
 .footer-head {
+  font-size: inherit;
   font-weight: 700;
   margin-bottom: 8px;
 }
@@ -860,4 +861,77 @@ textarea::placeholder { color: #d9d9d4; }
   .step--4 .step-label { left: 600px; top: 830px; padding: 0 20px 0 64px; }
   .step--4 .step-num   { left: 502px; top: 786px; }
   .step--4 .step-text  { left: 663px; top: 901px; }
+}
+
+
+/* =========================================================
+   Accesibilidad: texto solo para lectores de pantalla, salto
+   al contenido, foco visible y movimiento reducido
+   ========================================================= */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 1000;
+  padding: 8px 18px;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--ink);
+  font: 600 16px 'Titillium Web', sans-serif;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .18);
+}
+.skip-link:not(:focus) {
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+/* foco visible donde no hay un estilo propio (los existentes ganan) */
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+/* destinos de anclas: reciben foco por JS, sin anillo */
+:where([tabindex="-1"]):focus { outline: none; }
+/* el texto del botón es oscuro sobre fondo oscuro: anillo blanco */
+.send:focus-visible { outline-color: #fff; }
+
+/* Expertise: botón dentro del título, sin estilos propios;
+   el anillo de foco va en toda la tarjeta (tinta: >= 3:1 sobre blanco) */
+.ex-toggle {
+  all: unset;
+}
+.ex-toggle:focus-visible { outline: none; }
+.ex-card:has(.ex-toggle:focus-visible) {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+    transition-delay: 0s !important;
+    animation-duration: .01ms !important;
+    animation-delay: 0s !important;
+  }
 }

@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <div class="stage" id="stage">
   <div class="page" id="page">
 
@@ -53,6 +55,7 @@
       </div>
     </header>
 
+    <main id="main-content">
     <section class="tagline" data-screen-label="Tagline"></section>
 
     <!-- ============ EXPERTISE ============ -->
@@ -60,37 +63,37 @@
       <h2 class="expertise-title">Expertise</h2>
 
       <div class="ex-grid" id="exGrid">
-        <article class="ex-card" style="--c:var(--o)" tabindex="0">
+        <article class="ex-card" style="--c:var(--o)">
           <div class="ex-body">
-            <h3 class="ex-title">e-Learning<br>&amp; Video</h3>
-            <div class="ex-more">
+            <h3 class="ex-title"><button class="ex-toggle" type="button" aria-expanded="false" aria-controls="ex-more-1">e-Learning<br>&amp; Video</button></h3>
+            <div class="ex-more" id="ex-more-1">
               <p class="ex-sub">e-Learning Courses, AI Capsules, Motion Graphics, Corporate Assets, Training Experiences.</p>
               <p class="ex-desc">Video and digital content are at the heart of today's communication. We create and adapt engaging experiences that help you teach, inform, present, communicate, and entertain. From the initial idea to final production, we turn your messages into content that connects with your audience.</p>
             </div>
           </div>
         </article>
-        <article class="ex-card" style="--c:var(--t)" tabindex="0">
+        <article class="ex-card" style="--c:var(--t)">
           <div class="ex-body">
-            <h3 class="ex-title">Brand<br>&amp; Marketing</h3>
-            <div class="ex-more">
+            <h3 class="ex-title"><button class="ex-toggle" type="button" aria-expanded="false" aria-controls="ex-more-2">Brand<br>&amp; Marketing</button></h3>
+            <div class="ex-more" id="ex-more-2">
               <p class="ex-sub">Visual Identity, Websites, Landing Pages, Social Media Campaigns, Analytics.</p>
               <p class="ex-desc">A brand is built through multiple elements that need to work together: messaging, visual identity, content, and marketing assets. We help you create a consistent brand experience across every touchpoint, making sure every detail reflects your essence, strengthens your identity, and sets you apart.</p>
             </div>
           </div>
         </article>
-        <article class="ex-card" style="--c:var(--g)" tabindex="0">
+        <article class="ex-card" style="--c:var(--g)">
           <div class="ex-body">
-            <h3 class="ex-title">Digital<br>Accessibility</h3>
-            <div class="ex-more">
+            <h3 class="ex-title"><button class="ex-toggle" type="button" aria-expanded="false" aria-controls="ex-more-3">Digital<br>Accessibility</button></h3>
+            <div class="ex-more" id="ex-more-3">
               <p class="ex-sub">Document Remediation, Large Print, Alt Text, Audio Description, Closed Captions.</p>
               <p class="ex-desc">Removing barriers and meeting inclusion standards is no longer optional, it's essential. We take that responsibility seriously, helping you ensure your content can be understood and used by everyone, regardless of how they access information.</p>
             </div>
           </div>
         </article>
-        <article class="ex-card" style="--c:var(--m)" tabindex="0">
+        <article class="ex-card" style="--c:var(--m)">
           <div class="ex-body">
-            <h3 class="ex-title">Content<br>Globalization</h3>
-            <div class="ex-more">
+            <h3 class="ex-title"><button class="ex-toggle" type="button" aria-expanded="false" aria-controls="ex-more-4">Content<br>Globalization</button></h3>
+            <div class="ex-more" id="ex-more-4">
               <p class="ex-sub">Translation, Multilingual DTP, Video Localization, Subtitling, Voice-over, Dubbing.</p>
               <p class="ex-desc">We make sure your content connects with every audience, adapting to different languages, cultures, and markets, regardless of its format or medium. We take care of every message so it stays true to your original intent, preserves your brand's voice, and makes the same impact wherever it goes.</p>
             </div>
@@ -102,7 +105,7 @@
         <div class="feature feature--lang" style="--c:var(--g)">
           <div class="feature-bg"></div>
           <div class="feature-icon">
-            <svg width="70" height="70" viewBox="0 0 70 70" fill="#ABD125" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+            <svg aria-hidden="true" focusable="false" width="70" height="70" viewBox="0 0 70 70" fill="#ABD125" stroke="#fff" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
               <g class="ic-1"><path d="M34 12h24a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5h-1v7l-8-7H34a5 5 0 0 1-5-5V17a5 5 0 0 1 5-5z"/><path d="M40 18.5h12M46 16v2.5M49.5 18.5c-.8 5.5-4.4 9.4-9.5 11M42.6 22c1.6 3.4 4.6 6.2 8.6 7.6" fill="none"/></g>
               <g class="ic-2"><path d="M10 27h24a5 5 0 0 1 5 5v13a5 5 0 0 1-5 5H21l-8 7v-7h-3a5 5 0 0 1-5-5V32a5 5 0 0 1 5-5z"/><path d="M16 46l6-13.5L28 46M18.2 41h7.6" fill="none"/></g>
             </svg>
@@ -114,7 +117,7 @@
         <div class="feature feature--format" style="--c:var(--m)">
           <div class="feature-bg"></div>
           <div class="feature-icon">
-            <svg width="70" height="70" viewBox="0 0 70 70" fill="#E51A54" stroke="#fff" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round">
+            <svg aria-hidden="true" focusable="false" width="70" height="70" viewBox="0 0 70 70" fill="#E51A54" stroke="#fff" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round">
               <g class="ic-1"><rect x="24" y="7" width="23" height="30" rx="2.5" transform="rotate(-10 35.5 22)"/><path d="M29.5 15l12-2.1M30.2 19.5l12-2.1M30.9 24l12-2.1M31.6 28.5l7.5-1.3" fill="none"/></g>
               <g class="ic-2"><rect x="40" y="19" width="23" height="18" rx="2.5" transform="rotate(16 51.5 28)"/><circle cx="54.5" cy="25.5" r="2.2" fill="none"/><path d="M41.5 33.5l6-5.5 4.5 4.2 3-2.4 5 4.3" fill="none"/></g>
               <g class="ic-3"><rect x="6" y="25" width="22" height="17" rx="2.5"/><path d="M17 38.5l-4.8-4.7a2.7 2.7 0 0 1 4.8-2.7 2.7 2.7 0 0 1 4.8 2.7z"/></g>
@@ -128,7 +131,7 @@
         <div class="feature feature--tools" style="--c:var(--o)">
           <div class="feature-bg"></div>
           <div class="feature-icon">
-            <svg width="70" height="70" viewBox="0 0 70 70" fill="#FFAB00" stroke="#fff" stroke-width="2.3" stroke-linejoin="round">
+            <svg aria-hidden="true" focusable="false" width="70" height="70" viewBox="0 0 70 70" fill="#FFAB00" stroke="#fff" stroke-width="2.3" stroke-linejoin="round">
               <g class="ic-1"><path d="M37.83 19.10L38.53 21.40L42.85 21.74L42.85 26.26L38.53 26.60L37.83 28.90L36.70 31.03L39.51 34.31L36.31 37.51L33.03 34.70L30.90 35.83L28.60 36.53L28.26 40.85L23.74 40.85L23.40 36.53L21.10 35.83L18.97 34.70L15.69 37.51L12.49 34.31L15.30 31.03L14.17 28.90L13.47 26.60L9.15 26.26L9.15 21.74L13.47 21.40L14.17 19.10L15.30 16.97L12.49 13.69L15.69 10.49L18.97 13.30L21.10 12.17L23.40 11.47L23.74 7.15L28.26 7.15L28.60 11.47L30.90 12.17L33.03 13.30L36.31 10.49L39.51 13.69L36.70 16.97Z"/><circle cx="26" cy="24" r="5.5"/></g>
               <g class="ic-2"><path d="M59.65 31.83L60.34 33.78L63.85 34.02L63.85 37.98L60.34 38.22L59.65 40.17L58.56 41.92L60.56 44.81L57.47 47.28L55.09 44.69L53.14 45.36L51.09 45.60L50.07 48.97L46.21 48.09L46.76 44.61L45.01 43.51L43.55 42.05L40.28 43.36L38.57 39.79L41.62 38.05L41.40 36.00L41.62 33.95L38.57 32.21L40.28 28.64L43.55 29.95L45.01 28.49L46.76 27.39L46.21 23.91L50.07 23.03L51.09 26.40L53.14 26.64L55.09 27.31L57.47 24.72L60.56 27.19L58.56 30.08Z"/><circle cx="51" cy="36" r="4.2"/></g>
               <g class="ic-3"><path d="M34.93 47.00L35.71 48.85L38.83 49.05L38.83 52.95L35.71 53.15L34.93 55.00L33.72 56.60L35.10 59.40L31.73 61.35L29.99 58.75L28.00 59.00L26.01 58.75L24.27 61.35L20.90 59.40L22.28 56.60L21.07 55.00L20.29 53.15L17.17 52.95L17.17 49.05L20.29 48.85L21.07 47.00L22.28 45.40L20.90 42.60L24.27 40.65L26.01 43.25L28.00 43.00L29.99 43.25L31.73 40.65L35.10 42.60L33.72 45.40Z"/><circle cx="28" cy="51" r="3.6"/></g>
@@ -146,22 +149,22 @@
 
       <div class="steps">
         <div class="step step--1" style="--c:var(--g)">
-          <div class="step-label">Explore</div>
+          <h3 class="step-label">Explore</h3>
           <div class="step-num">01</div>
           <p class="step-text">Before we propose, we understand. We get to know your goals, audience, content and context, and spot gaps before they become problems.</p>
         </div>
         <div class="step step--2" style="--c:var(--t)">
-          <div class="step-label">Design</div>
+          <h3 class="step-label">Design</h3>
           <div class="step-num">02</div>
           <p class="step-text">We map out the workflow, the team and the timeline, and tell you exactly what we need from you.</p>
         </div>
         <div class="step step--3" style="--c:var(--m)">
-          <div class="step-label">Produce</div>
+          <h3 class="step-label">Produce</h3>
           <div class="step-num">03</div>
           <p class="step-text">Let’s make it happen. We bring together the right skills to write, design, translate, produce and build, in any language, format and channel.</p>
         </div>
         <div class="step step--4" style="--c:var(--o)">
-          <div class="step-label">Deliver &amp; Improve</div>
+          <h3 class="step-label">Deliver &amp; Improve</h3>
           <div class="step-num">04</div>
           <p class="step-text">On time and ready to use. Then we look at what worked, from your feedback to campaign results, to make the next project even better.</p>
         </div>
@@ -180,7 +183,7 @@
         <button class="video-play" type="button" aria-label="Play video">
           <svg width="104" height="118" viewBox="0 0 104 118" aria-hidden="true"><path d="M8 14 Q8 2 19 8 L96 52 Q104 59 96 66 L19 110 Q8 116 8 104 Z" fill="#C1C1C1" stroke="#C1C1C1" stroke-width="8" stroke-linejoin="round"/></svg>
         </button>
-        <button class="video-sound" type="button" aria-pressed="false">Sound off</button>
+        <button class="video-sound" type="button">Sound off</button>
       </div>
 
       <div class="stripes" aria-hidden="true">
@@ -196,45 +199,53 @@
           <input type="hidden" name="access_key" value="090d9281-b4d4-4661-9116-a260f2d35d1e">
           <input type="hidden" name="subject" value="New contact from The Typesetter website">
           <input type="hidden" name="from_name" value="The Typesetter Website">
-          <input class="field" name="name" placeholder="Name" aria-label="Name">
-          <input class="field" name="email" type="email" placeholder="E-mail" aria-label="E-mail">
+          <label class="sr-only" for="fieldName">Name</label>
+          <input class="field" id="fieldName" name="name" placeholder="Name" autocomplete="name" required>
+          <label class="sr-only" for="fieldEmail">E-mail</label>
+          <input class="field" id="fieldEmail" name="email" type="email" placeholder="E-mail" autocomplete="email" required>
           <div class="field-row">
-            <input class="field" name="phone" type="tel" placeholder="Phone" aria-label="Phone">
-            <input class="field" name="company" placeholder="Company" aria-label="Company">
+            <label class="sr-only" for="fieldPhone">Phone</label>
+            <input class="field" id="fieldPhone" name="phone" type="tel" placeholder="Phone" autocomplete="tel">
+            <label class="sr-only" for="fieldCompany">Company</label>
+            <input class="field" id="fieldCompany" name="company" placeholder="Company" autocomplete="organization">
           </div>
           <fieldset class="chips" id="serviceChips">
-            <legend class="chips-legend">I'm interested in:</legend>
+            <legend class="chips-legend">I'm interested in:<span class="sr-only"> (required, choose at least one)</span></legend>
             <label class="chip" style="--c:var(--o);--fg:var(--ink)"><input type="checkbox" value="e-Learning &amp; Video"><span>e-Learning &amp; Video</span></label>
             <label class="chip" style="--c:var(--t)"><input type="checkbox" value="Brand &amp; Marketing"><span>Brand &amp; Marketing</span></label>
             <label class="chip" style="--c:var(--g);--fg:var(--ink)"><input type="checkbox" value="Digital Accessibility"><span>Digital Accessibility</span></label>
             <label class="chip" style="--c:var(--m)"><input type="checkbox" value="Content Globalization"><span>Content Globalization</span></label>
-            <label class="chip" style="--c:#fff;--fg:var(--ink)"><input type="checkbox" value="other" id="serviceOtherChip"><span>Other</span></label>
+            <label class="chip" style="--c:#fff;--fg:var(--ink)"><input type="checkbox" value="other" id="serviceOtherChip" aria-controls="serviceOther" aria-describedby="serviceOtherHint"><span>Other</span></label>
+            <span class="sr-only" id="serviceOtherHint">Shows a field to specify the service.</span>
           </fieldset>
           <!-- los servicios marcados se envían juntos en este campo -->
           <input type="hidden" name="service" id="serviceValue">
-          <input class="field" name="service_other" id="serviceOther" placeholder="Which service?" aria-label="Other service" hidden>
-          <textarea class="field field--area" name="message" placeholder="Message" aria-label="Message"></textarea>
+          <label class="sr-only" for="serviceOther" id="serviceOtherLabel" hidden>Which service?</label>
+          <input class="field" name="service_other" id="serviceOther" placeholder="Which service?" hidden>
+          <label class="sr-only" for="fieldMessage">Message</label>
+          <textarea class="field field--area" id="fieldMessage" name="message" placeholder="Message" required></textarea>
           <!-- honeypot anti-spam de Web3Forms: oculto para humanos -->
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
-          <button class="send" type="button" id="sendBtn"><span class="send-label">Send</span></button>
-          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="send" type="submit" id="sendBtn"><span class="send-label">Send</span></button>
+          <p class="form-status sr-only" id="formStatus" role="status"></p>
         </form>
       </div>
     </section>
+    </main>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
       <div class="footer-grid">
         <img class="footer-logo" src="assets/img/logo-tts-color.png" alt="the typesetter">
         <div class="footer-col">
-          <div class="footer-head">Our offices</div>
-          <div>Córdoba, Argentina<br>Nazaret 2887, Piso 3 oficina 22</div>
+          <h2 class="footer-head">Our offices</h2>
+          <div>Córdoba, Argentina<br><span lang="es">Nazaret 2887, Piso 3 oficina 22</span></div>
           <div class="footer-office">Florida, USA<br>255 Aragon Avenue, 2nd Floor<br>Coral Gables, 33134</div>
         </div>
         <div class="footer-col">
-          <div class="footer-head">Contact us at</div>
+          <h2 class="footer-head">Contact us at</h2>
           <a class="footer-mail" href="mailto:hello@thetypesetter.com.ar">hello@thetypesetter.com.ar</a>
-          <div class="footer-head footer-head--quality">Our Quality Policy</div>
+          <h2 class="footer-head footer-head--quality">Our Quality Policy</h2>
           <div class="footer-certs">
             <img class="footer-cert" src="assets/img/tuv-certified.png" alt="TÜV Rheinland Certified — ISO 9001:2015, ISO 17100:2015">
             <img class="footer-gptw" src="assets/img/logo-great-place-to-work.png" alt="Great Place To Work — Certified 2026 Argentina">

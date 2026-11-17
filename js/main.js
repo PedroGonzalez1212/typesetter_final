@@ -455,10 +455,19 @@
      Expertise: tarjetas expandibles
      --------------------------------------------------------- */
   let exp = -1;
+  const exToggles = exCards.map(card => $('.ex-toggle', card));
+  const exPanels = exCards.map(card => $('.ex-more', card));
 
   function setExp(e) {
     exp = e;
-    exCards.forEach((card, i) => card.classList.toggle('is-open', i === e));
+    exCards.forEach((card, i) => {
+      const open = i === e;
+      card.classList.toggle('is-open', open);
+      // cerrada: el detalle queda fuera del lector de pantalla y del foco
+      exToggles[i].setAttribute('aria-expanded', String(open));
+      exPanels[i].setAttribute('aria-hidden', String(!open));
+      exPanels[i].inert = !open;
+    });
     exGrid.classList.toggle('has-open', e >= 0);
     if (state.desktop) {
       const c = e % 2, r = Math.floor(e / 2);
@@ -474,18 +483,22 @@
     card.addEventListener('mouseenter', () => {
       if (state.desktop && exp !== i) setExp(i);
     });
-    card.addEventListener('click', () => {
+    card.addEventListener('click', ev => {
       if (!state.desktop) setExp(exp === i ? -1 : i);
-    });
-    card.addEventListener('keydown', ev => {
-      if (ev.key === 'Enter' || ev.key === ' ') {
-        ev.preventDefault();
-        setExp(exp === i ? -1 : i);
-      }
+      // escritorio: el teclado (detail 0) abre y cierra; el mouse ya abrió con hover
+      else if (ev.target.closest('.ex-toggle')) setExp(ev.detail === 0 && exp === i ? -1 : i);
     });
   });
   exGrid.addEventListener('mouseleave', () => {
     if (state.desktop) setExp(-1);
+  });
+  // Escape cierra la tarjeta abierta (también la abierta con hover)
+  document.addEventListener('keydown', ev => {
+    if (ev.key !== 'Escape' || exp < 0) return;
+    const t = exToggles[exp];
+    const inside = exGrid.contains(document.activeElement);
+    setExp(-1);
+    if (inside) t.focus();
   });
 
   /* ---------------------------------------------------------
@@ -531,16 +544,43 @@
   const serviceOther = $('#serviceOther');
   const serviceValue = $('#serviceValue');
 
-  const setStatus = (msg) => { formStatus.textContent = msg; };
+  const serviceOtherLabel = $('#serviceOtherLabel');
+  const chipInputs = $$('input', serviceChips);
+
+  // Línea de estado (role="status"): siempre en el DOM. Se vacía y el texto
+  // se pone un instante después para que NVDA lo anuncie aunque se repita.
+  // srOnly: el mensaje se anuncia pero no se muestra (sin cambios visuales).
+  let statusTimer = 0;
+  const setStatus = (msg, srOnly) => {
+    clearTimeout(statusTimer);
+    formStatus.textContent = '';
+    formStatus.classList.add('sr-only');
+    if (!msg) return;
+    statusTimer = setTimeout(() => {
+      formStatus.classList.toggle('sr-only', !!srOnly);
+      formStatus.textContent = msg;
+    }, 150);
+  };
+
+  // aria-invalid + aria-describedby hacia el mensaje de error
+  const setInvalid = (el, bad) => {
+    const ids = (el.getAttribute('aria-describedby') || '').split(' ').filter(id => id && id !== 'formStatus');
+    if (bad) ids.push('formStatus');
+    if (ids.length) el.setAttribute('aria-describedby', ids.join(' '));
+    else el.removeAttribute('aria-describedby');
+    if (bad) el.setAttribute('aria-invalid', 'true');
+    else el.removeAttribute('aria-invalid');
+  };
 
   // "Other" muestra un campo de texto, obligatorio solo en ese caso
   const syncServiceOther = () => {
     const isOther = serviceOtherChip.checked;
     serviceOther.hidden = !isOther;
+    serviceOtherLabel.hidden = !isOther;
     serviceOther.required = isOther;
     if (!isOther) {
       serviceOther.value = '';
-      serviceOther.removeAttribute('aria-invalid');
+      setInvalid(serviceOther, false);
     }
   };
   serviceOtherChip.addEventListener('change', syncServiceOther);
@@ -557,32 +597,39 @@
     Object.entries(checks).forEach(([name, ok]) => {
       const el = contactForm.elements[name];
       const bad = !ok(el.value.trim());
-      el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      setInvalid(el, bad);
       if (bad && !firstBad) firstBad = el;
     });
-    // al menos un servicio marcado
+    // al menos un servicio marcado (el atributo del fieldset es para el estilo;
+    // a los lectores se les informa en cada casilla)
     const noService = !$('input:checked', serviceChips);
     serviceChips.setAttribute('aria-invalid', noService ? 'true' : 'false');
-    if (noService && (!firstBad || firstBad.name === 'message')) firstBad = $('input', serviceChips);
+    chipInputs.forEach(c => setInvalid(c, noService));
+    if (noService && (!firstBad || firstBad.name === 'message')) firstBad = chipInputs[0];
     if (firstBad) firstBad.focus();
     return !firstBad;
   };
 
   contactForm.addEventListener('input', e => {
-    if (e.target.getAttribute('aria-invalid') === 'true') e.target.removeAttribute('aria-invalid');
-    if (serviceChips.contains(e.target)) serviceChips.removeAttribute('aria-invalid');
+    if (e.target.getAttribute('aria-invalid') === 'true') setInvalid(e.target, false);
+    if (serviceChips.contains(e.target)) {
+      serviceChips.removeAttribute('aria-invalid');
+      chipInputs.forEach(c => setInvalid(c, false));
+    }
   });
 
-  sendBtn.addEventListener('click', async () => {
+  contactForm.addEventListener('submit', async ev => {
+    ev.preventDefault();
     if (sending) return;
     if (!validateForm()) {
       setStatus('Please fill in your name, a valid e-mail, a service and a message.');
       return;
     }
     sending = true;
-    sendBtn.disabled = true;
+    // aria-disabled (no disabled) para que el foco no se pierda
+    sendBtn.setAttribute('aria-disabled', 'true');
     sendBtn.innerHTML = '<span class="send-label">Sending…</span>';
-    setStatus('');
+    setStatus('Sending…', true);
 
     // los chips marcados viajan juntos en el campo "service"
     serviceValue.value = $$('input:checked', serviceChips)
@@ -602,7 +649,7 @@
 
     if (!res || res.success !== true) {
       sendBtn.innerHTML = '<span class="send-label">Send</span>';
-      sendBtn.disabled = false;
+      sendBtn.removeAttribute('aria-disabled');
       sending = false;
       setStatus((res && res.message) || 'We couldn’t send your message. Please try again or email us directly.');
       return;
@@ -610,7 +657,8 @@
 
     contactForm.reset();
     syncServiceOther();
-    sendBtn.disabled = false;
+    sendBtn.removeAttribute('aria-disabled');
+    setStatus('Thank you, your message has been sent.', true);
     const rings = [[COL.g, 256], [COL.m, 208], [COL.t, 160], [COL.o, 112], ['#fff', 64]];
     const T = 1.4;
     sendBtn.textContent = '';
@@ -643,7 +691,11 @@
   const heroTitle = $('.hero-title');
   const heroBubble = $('.hero-bubble');
   if (heroTitle && heroBubble && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    heroTitle.setAttribute('aria-label', heroTitle.textContent.replace(/\s+/g, ' ').trim());
+    // texto completo para lectores de pantalla en un nodo aparte (el <br>
+    // cuenta como espacio); las letras animadas quedan ocultas para ellos
+    const srTitle = document.createElement('span');
+    srTitle.className = 'sr-only';
+    srTitle.textContent = heroTitle.innerText.replace(/\s+/g, ' ').trim();
 
     // cada letra en su span: el texto ocupa su lugar desde el principio
     const chars = [];
@@ -663,6 +715,7 @@
       }
       node.replaceWith(frag);
     });
+    heroTitle.prepend(srTitle);
     heroTitle.classList.add('is-typing');
 
     let started = false;
@@ -732,7 +785,8 @@
 
     soundBtn.addEventListener('click', () => {
       video.muted = !video.muted;
-      soundBtn.setAttribute('aria-pressed', String(!video.muted));
+      // el texto visible ya dice el estado (sin aria-pressed para no duplicarlo)
+      soundBtn.classList.toggle('is-on', !video.muted);
       soundBtn.textContent = video.muted ? 'Sound off' : 'Sound on';
     });
 
@@ -771,7 +825,11 @@
     stage.scrollTop = 0;
     stage.scrollLeft = 0;
     const y = target.getBoundingClientRect().top + window.scrollY - 24;
-    window.scrollTo({ top: Math.max(0, y), behavior: smooth ? 'smooth' : 'auto' });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, y), behavior: smooth && !reduce ? 'smooth' : 'auto' });
+    // el foco pasa a la sección (no solo el scroll)
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
   }
 
   $$('a[href^="#"]').forEach(a => {
