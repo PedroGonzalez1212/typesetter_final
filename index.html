@@ -192,21 +192,30 @@
 
       <div class="contact" id="contact" data-screen-label="Contact">
         <h2 class="contact-title">Contact us</h2>
-        <form class="contact-form" id="contactForm" action="php/contact.php" method="post" novalidate>
+        <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <input type="hidden" name="access_key" value="090d9281-b4d4-4661-9116-a260f2d35d1e">
+          <input type="hidden" name="subject" value="New contact from The Typesetter website">
+          <input type="hidden" name="from_name" value="The Typesetter Website">
           <input class="field" name="name" placeholder="Name" aria-label="Name">
           <input class="field" name="email" type="email" placeholder="E-mail" aria-label="E-mail">
-          <input class="field" name="company" placeholder="Company" aria-label="Company">
+          <div class="field-row">
+            <input class="field" name="phone" type="tel" placeholder="Phone" aria-label="Phone">
+            <input class="field" name="company" placeholder="Company" aria-label="Company">
+          </div>
           <fieldset class="chips" id="serviceChips">
             <legend class="chips-legend">I'm interested in:</legend>
-            <label class="chip" style="--c:var(--o);--fg:var(--ink)"><input type="checkbox" name="service[]" value="e-Learning &amp; Video"><span>e-Learning &amp; Video</span></label>
-            <label class="chip" style="--c:var(--t)"><input type="checkbox" name="service[]" value="Brand &amp; Marketing"><span>Brand &amp; Marketing</span></label>
-            <label class="chip" style="--c:var(--g);--fg:var(--ink)"><input type="checkbox" name="service[]" value="Digital Accessibility"><span>Digital Accessibility</span></label>
-            <label class="chip" style="--c:var(--m)"><input type="checkbox" name="service[]" value="Content Globalization"><span>Content Globalization</span></label>
-            <label class="chip" style="--c:#fff;--fg:var(--ink)"><input type="checkbox" name="service[]" value="Other"><span>Other</span></label>
+            <label class="chip" style="--c:var(--o);--fg:var(--ink)"><input type="checkbox" value="e-Learning &amp; Video"><span>e-Learning &amp; Video</span></label>
+            <label class="chip" style="--c:var(--t)"><input type="checkbox" value="Brand &amp; Marketing"><span>Brand &amp; Marketing</span></label>
+            <label class="chip" style="--c:var(--g);--fg:var(--ink)"><input type="checkbox" value="Digital Accessibility"><span>Digital Accessibility</span></label>
+            <label class="chip" style="--c:var(--m)"><input type="checkbox" value="Content Globalization"><span>Content Globalization</span></label>
+            <label class="chip" style="--c:#fff;--fg:var(--ink)"><input type="checkbox" value="other" id="serviceOtherChip"><span>Other</span></label>
           </fieldset>
+          <!-- los servicios marcados se envían juntos en este campo -->
+          <input type="hidden" name="service" id="serviceValue">
+          <input class="field" name="service_other" id="serviceOther" placeholder="Which service?" aria-label="Other service" hidden>
           <textarea class="field field--area" name="message" placeholder="Message" aria-label="Message"></textarea>
-          <!-- honeypot anti-spam: oculto para humanos -->
-          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <!-- honeypot anti-spam de Web3Forms: oculto para humanos -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <button class="send" type="button" id="sendBtn"><span class="send-label">Send</span></button>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
@@ -219,8 +228,8 @@
         <img class="footer-logo" src="assets/img/logo-tts-color.png" alt="the typesetter">
         <div class="footer-col">
           <div class="footer-head">Our offices</div>
-          <div>Córdoba, Argentina<br>Nazaret 2887, Piso 3 oficina 22<br>Phone: +54 351 489 0206</div>
-          <div class="footer-office">Florida, USA<br>255 Aragon Avenue, 2nd Floor<br>Coral Gables, 33134<br>Phone: +1 (904) 807 4554</div>
+          <div>Córdoba, Argentina<br>Nazaret 2887, Piso 3 oficina 22</div>
+          <div class="footer-office">Florida, USA<br>255 Aragon Avenue, 2nd Floor<br>Coral Gables, 33134</div>
         </div>
         <div class="footer-col">
           <div class="footer-head footer-head--tight">Contact us at:</div>

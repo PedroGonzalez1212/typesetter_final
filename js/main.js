@@ -524,14 +524,30 @@
   let sending = false;
 
   const serviceChips = $('#serviceChips');
+  const serviceOtherChip = $('#serviceOtherChip');
+  const serviceOther = $('#serviceOther');
+  const serviceValue = $('#serviceValue');
 
   const setStatus = (msg) => { formStatus.textContent = msg; };
 
-  // validación mínima del lado del cliente; el servidor vuelve a validar
+  // "Other" muestra un campo de texto, obligatorio solo en ese caso
+  const syncServiceOther = () => {
+    const isOther = serviceOtherChip.checked;
+    serviceOther.hidden = !isOther;
+    serviceOther.required = isOther;
+    if (!isOther) {
+      serviceOther.value = '';
+      serviceOther.removeAttribute('aria-invalid');
+    }
+  };
+  serviceOtherChip.addEventListener('change', syncServiceOther);
+
+  // validación mínima del lado del cliente
   const validateForm = () => {
     const checks = {
       name: v => v !== '',
       email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+      service_other: v => !serviceOtherChip.checked || v !== '',
       message: v => v !== '',
     };
     let firstBad = null;
@@ -544,7 +560,7 @@
     // al menos un servicio marcado
     const noService = !$('input:checked', serviceChips);
     serviceChips.setAttribute('aria-invalid', noService ? 'true' : 'false');
-    if (noService && !firstBad) firstBad = $('input', serviceChips);
+    if (noService && (!firstBad || firstBad.name === 'message')) firstBad = $('input', serviceChips);
     if (firstBad) firstBad.focus();
     return !firstBad;
   };
@@ -557,7 +573,7 @@
   sendBtn.addEventListener('click', async () => {
     if (sending) return;
     if (!validateForm()) {
-      setStatus('Please fill in your name, a valid e-mail, at least one service and a message.');
+      setStatus('Please fill in your name, a valid e-mail, a service and a message.');
       return;
     }
     sending = true;
@@ -565,9 +581,13 @@
     sendBtn.innerHTML = '<span class="send-label">Sending…</span>';
     setStatus('');
 
+    // los chips marcados viajan juntos en el campo "service"
+    serviceValue.value = $$('input:checked', serviceChips)
+      .map(c => (c.value === 'other' ? 'Other' : c.value)).join(', ');
+
     let res = null;
     try {
-      const r = await fetch(contactForm.action, {
+      const r = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: new FormData(contactForm),
         headers: { Accept: 'application/json' },
@@ -577,15 +597,16 @@
       res = null;
     }
 
-    if (!res || !res.ok) {
+    if (!res || res.success !== true) {
       sendBtn.innerHTML = '<span class="send-label">Send</span>';
       sendBtn.disabled = false;
       sending = false;
-      setStatus((res && res.error) || 'We couldn’t send your message. Please try again or email us directly.');
+      setStatus((res && res.message) || 'We couldn’t send your message. Please try again or email us directly.');
       return;
     }
 
     contactForm.reset();
+    syncServiceOther();
     sendBtn.disabled = false;
     const rings = [[COL.g, 256], [COL.m, 208], [COL.t, 160], [COL.o, 112], ['#fff', 64]];
     const T = 1.4;
