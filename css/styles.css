@@ -132,7 +132,7 @@ textarea::placeholder { color: #d9d9d4; }
 .hero-bubble-shape path {
   fill: #fff;
   stroke: #111;
-  stroke-width: 2.5;
+  stroke-width: 1;
   stroke-linejoin: round;
 }
 
@@ -347,7 +347,7 @@ textarea::placeholder { color: #d9d9d4; }
 .feature-text {
   position: relative;
   font-size: 14px;
-  line-height: 1.16;
+  line-height: 1.4;
   font-weight: 400;
 }
 
@@ -364,7 +364,8 @@ textarea::placeholder { color: #d9d9d4; }
 
 /* ---------- Methodology ---------- */
 .step-label {
-  height: 44px;
+  height: 50px;
+  line-height: 1.2;
   background: #fff;
   border-radius: 0 22px 22px 0;
   display: flex;
@@ -397,13 +398,13 @@ textarea::placeholder { color: #d9d9d4; }
 }
 .step-text {
   font-size: 16px;
-  line-height: 1.2;
+  line-height: 1.45;
   background: #fff;
   border-radius: 6px;
   cursor: default;
   opacity: 0;
   transform: translateY(10px);
-  transition: height .45s var(--ease-out), box-shadow .35s, opacity .5s ease .45s, transform .6s var(--ease-out) .45s;
+  transition: max-height .45s var(--ease-out), box-shadow .35s, opacity .5s ease .45s, transform .6s var(--ease-out) .45s;
 }
 
 .step.is-on .step-label { clip-path: inset(-20px -20px -20px 0 round 0 22px 22px 0); }
@@ -681,13 +682,9 @@ textarea::placeholder { color: #d9d9d4; }
 }
 .footer-head {
   font-weight: 700;
-  margin-bottom: 12px;
-}
-.footer-head--tight { margin-bottom: 0; }
-.footer-head--quality {
-  margin-top: 28px;
   margin-bottom: 8px;
 }
+.footer-head--quality { margin-top: 28px; }
 .footer-office { margin-top: 16px; }
 .footer-mail { font-weight: 300; }
 .footer-certs {
@@ -765,7 +762,7 @@ textarea::placeholder { color: #d9d9d4; }
   /* Expertise */
   .expertise {
     position: relative;
-    height: 1206px;
+    height: 1275px;
   }
   .expertise-title {
     position: absolute;
@@ -795,7 +792,7 @@ textarea::placeholder { color: #d9d9d4; }
     position: absolute;
     top: 825px;
     width: 228px;
-    height: 367px;
+    height: 436px;
   }
   .feature--lang   { left: 254px; }
   .feature--format { left: 507px; }
@@ -804,13 +801,13 @@ textarea::placeholder { color: #d9d9d4; }
     position: absolute;
     left: 0;
     right: 0;
-    top: 118px;
+    top: 119px;
   }
   .feature-text {
     position: absolute;
     left: 24px;
     right: 20px;
-    top: 160px;
+    top: 168px;
   }
 
   /* Methodology */
@@ -828,14 +825,18 @@ textarea::placeholder { color: #d9d9d4; }
   .step-num,
   .step-text { position: absolute; }
 
+  /* recortado a 5 renglones; si el texto no entra se desvanece
+     y se expande al hover (js/main.js marca .is-clipped) */
   .step-text {
     width: 172px;
-    height: calc(var(--h) * 1px);
+    max-height: 116px;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(#000 25%, transparent);
-    mask-image: linear-gradient(#000 25%, transparent);
     box-shadow: 0 0 0 12px rgba(255, 255, 255, 0);
     z-index: 1;
+  }
+  .step-text.is-clipped {
+    -webkit-mask-image: linear-gradient(#000 25%, transparent);
+    mask-image: linear-gradient(#000 25%, transparent);
   }
   .step-text.is-hover {
     -webkit-mask-image: none;
@@ -844,19 +845,19 @@ textarea::placeholder { color: #d9d9d4; }
     z-index: 3;
   }
 
-  .step--1 .step-label { left: 344px; top: 208px; padding: 0 20px 0 66px; }
+  .step--1 .step-label { left: 344px; top: 205px; padding: 0 20px 0 66px; }
   .step--1 .step-num   { left: 246px; top: 161px; }
-  .step--1 .step-text  { left: 412px; top: 268px; --h: 130; }
+  .step--1 .step-text  { left: 412px; top: 276px; }
 
-  .step--2 .step-label { left: 740px; top: 378px; padding: 0 20px 0 64px; }
+  .step--2 .step-label { left: 740px; top: 375px; padding: 0 20px 0 64px; }
   .step--2 .step-num   { left: 642px; top: 331px; }
-  .step--2 .step-text  { left: 804px; top: 443px; --h: 130; }
+  .step--2 .step-text  { left: 804px; top: 446px; }
 
-  .step--3 .step-label { left: 398px; top: 553px; padding: 0 20px 0 65px; }
+  .step--3 .step-label { left: 398px; top: 550px; padding: 0 20px 0 65px; }
   .step--3 .step-num   { left: 300px; top: 506px; }
-  .step--3 .step-text  { left: 463px; top: 618px; --h: 110; }
+  .step--3 .step-text  { left: 463px; top: 621px; }
 
-  .step--4 .step-label { left: 600px; top: 833px; padding: 0 20px 0 64px; }
+  .step--4 .step-label { left: 600px; top: 830px; padding: 0 20px 0 64px; }
   .step--4 .step-num   { left: 502px; top: 786px; }
-  .step--4 .step-text  { left: 663px; top: 898px; --h: 110; }
+  .step--4 .step-text  { left: 663px; top: 901px; }
 }

@@ -84,13 +84,13 @@
   }
 
   function buildGeo(o) {
-    const A = o[1] + 90, B = A + 247, C = B + 1206;
+    const A = o[1] + 90, B = A + 247, C = B + 1275;
     const oy = o[1];
     const dx = o[0] - 796, X = (x, w) => x + dx * w;
     const strokes = [
       { order: OTMG, F: 200, S: 180, straight: 96 / state.s, pts: [o, [X(796, 1), oy + 60], [X(812, 1), oy + 130], [X(838, 1), oy + 190], [X(848, .8), oy + 240], [X(830, .6), oy + 288], [X(785, .4), oy + 322], [700, oy + 338], [590, oy + 322], [410, oy + 282], [235, oy + 252], [150, oy + 266], [92, oy + 296], [60, oy + 340], [56, oy + 388], [80, oy + 432], [130, oy + 466], [205, oy + 486], [290, oy + 494], [350, oy + 500], [390, oy + 508]] },
       { order: OTMG, F: 40, S: 165, pts: [[925, B + 172], [985, B + 172], [1022, B + 176], [1100, B + 215], [1150, B + 285], [1168, B + 345], [1150, B + 420], [1100, B + 478], [1040, B + 506], [985, B + 512], [925, B + 505]] },
-      { order: OTMG, F: 160, S: 180, end: 'g', endLen: 120, pts: [[340, B + 420], [270, B + 428], [222, B + 462], [204, B + 525], [222, B + 595], [285, B + 655], [400, B + 698], [590, B + 724], [770, B + 734], [860, B + 744], [940, B + 774], [1000, B + 834], [1030, B + 914], [1020, B + 984], [985, B + 1034], [930, B + 1066], [850, B + 1083], [745, B + 1090], [620, B + 1100], [494, B + 1113], [380, B + 1140], [265, B + 1171], [215, B + 1195], [170, B + 1245], [142, B + 1311], [150, B + 1356], [200, B + 1398], [250, B + 1422], [315, B + 1436]] },
+      { order: OTMG, F: 160, S: 180, end: 'g', endLen: 120, pts: [[340, B + 420], [270, B + 428], [222, B + 462], [204, B + 525], [222, B + 595], [285, B + 655], [400, B + 698], [590, B + 724], [770, B + 734], [860, B + 744], [940, B + 774], [1000, B + 834], [1030, B + 914], [1020, B + 984], [985, B + 1034], [930, B + 1066], [850, B + 1152], [745, B + 1159], [620, B + 1169], [494, B + 1182], [380, B + 1209], [265, B + 1240], [215, B + 1264], [170, B + 1314], [142, B + 1380], [150, B + 1425], [200, B + 1467], [250, B + 1491], [315, B + 1505]] },
       { order: ['g', 't'], F: 350, S: 9999, pts: [[315, C + 230], [450, C + 232], [585, C + 228], [650, C + 252], [700, C + 298], [725, C + 340], [711, C + 400]] },
       { order: ['t', 'm'], F: 200, S: 9999, pts: [[711, C + 400], [700, C + 468], [640, C + 500], [540, C + 522], [450, C + 532], [395, C + 550], [369, C + 575]] },
       { order: ['m', 'o'], F: 360, S: 9999, pts: [[369, C + 575], [300, C + 610], [245, C + 680], [232, C + 735], [262, C + 808], [330, C + 855], [395, C + 878], [470, C + 872], [571, C + 855]] },
@@ -503,14 +503,17 @@
   /* ---------------------------------------------------------
      Methodology: texto expandible al hover (escritorio)
      --------------------------------------------------------- */
+  function markClippedSteps() {
+    stepTexts.forEach(el => el.classList.toggle('is-clipped', state.desktop && el.scrollHeight > el.clientHeight + 1));
+  }
   stepTexts.forEach(el => {
     el.addEventListener('mouseenter', () => {
-      if (!state.desktop) return;
-      el.style.height = el.scrollHeight + 'px';
+      if (!state.desktop || !el.classList.contains('is-clipped')) return;
+      el.style.maxHeight = el.scrollHeight + 'px';
       el.classList.add('is-hover');
     });
     el.addEventListener('mouseleave', () => {
-      el.style.height = '';
+      el.style.maxHeight = '';
       el.classList.remove('is-hover');
     });
   });
@@ -800,7 +803,7 @@
     state.L = state.Lcur = 0;
     state.p = 0;
     steps.forEach(s => s.classList.remove('is-on'));
-    stepTexts.forEach(el => { el.style.height = ''; el.classList.remove('is-hover'); });
+    stepTexts.forEach(el => { el.style.maxHeight = ''; el.classList.remove('is-hover'); });
   }
 
   function enableDesktop() {
@@ -808,6 +811,7 @@
     state.desktop = true;
     setExp(-1);
     layout();
+    markClippedSteps();
     if (ro) { ro.observe(page); ro.observe(nav); }
     startTick();
   }
@@ -819,6 +823,7 @@
     stage.style.height = '';
     setExp(-1);
     fluidMeasure();
+    markClippedSteps();
     if (ro) ro.observe(page);
     startTick();
   }
@@ -833,7 +838,7 @@
 
   window.addEventListener('resize', layout);
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(refresh);
+    document.fonts.ready.then(() => { refresh(); markClippedSteps(); });
   }
   window.addEventListener('load', () => {
     refresh();

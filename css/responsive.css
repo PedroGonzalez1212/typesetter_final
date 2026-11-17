@@ -96,14 +96,14 @@
     margin: 80px auto 0;
   }
   .feature {
-    padding: 118px 24px 32px;
+    padding: 119px 24px 32px;
     cursor: pointer;
   }
   .feature-icon {
     left: 50%;
     margin-left: -49px;
   }
-  .feature-text { margin-top: 12px; }
+  .feature-text { margin-top: 17px; }
 
   /* Methodology: línea de tiempo vertical */
   .method { padding-bottom: 96px; }
@@ -136,7 +136,7 @@
     grid-column: 2;
     grid-row: 1;
     justify-self: start;
-    margin: 30px 0 0 -52px;
+    margin: 27px 0 0 -52px;
     padding: 0 22px 0 66px;
   }
   .step-text {
@@ -243,7 +243,7 @@
     max-width: 340px;
     margin-top: 64px;
   }
-  .feature { padding: 116px 26px 30px; }
+  .feature { padding: 119px 26px 30px; }
   .feature-text { font-size: 15px; line-height: 1.3; }
 
   /* Methodology */
@@ -257,8 +257,8 @@
     box-shadow: 4px 6px 10px rgba(0, 0, 0, .12);
   }
   .step-label {
-    height: 38px;
-    margin: 19px 0 0 -38px;
+    height: 42px;
+    margin: 17px 0 0 -38px;
     padding: 0 18px 0 50px;
     font-size: 20px;
   }
