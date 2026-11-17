@@ -519,11 +519,74 @@
      Botón "Send" con anillos de colores
      --------------------------------------------------------- */
   const sendBtn = $('#sendBtn');
+  const contactForm = $('#contactForm');
+  const formStatus = $('#formStatus');
   let sending = false;
 
-  sendBtn.addEventListener('click', () => {
+  const serviceChips = $('#serviceChips');
+
+  const setStatus = (msg) => { formStatus.textContent = msg; };
+
+  // validación mínima del lado del cliente; el servidor vuelve a validar
+  const validateForm = () => {
+    const checks = {
+      name: v => v !== '',
+      email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+      message: v => v !== '',
+    };
+    let firstBad = null;
+    Object.entries(checks).forEach(([name, ok]) => {
+      const el = contactForm.elements[name];
+      const bad = !ok(el.value.trim());
+      el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+      if (bad && !firstBad) firstBad = el;
+    });
+    // al menos un servicio marcado
+    const noService = !$('input:checked', serviceChips);
+    serviceChips.setAttribute('aria-invalid', noService ? 'true' : 'false');
+    if (noService && !firstBad) firstBad = $('input', serviceChips);
+    if (firstBad) firstBad.focus();
+    return !firstBad;
+  };
+
+  contactForm.addEventListener('input', e => {
+    if (e.target.getAttribute('aria-invalid') === 'true') e.target.removeAttribute('aria-invalid');
+    if (serviceChips.contains(e.target)) serviceChips.removeAttribute('aria-invalid');
+  });
+
+  sendBtn.addEventListener('click', async () => {
     if (sending) return;
+    if (!validateForm()) {
+      setStatus('Please fill in your name, a valid e-mail, at least one service and a message.');
+      return;
+    }
     sending = true;
+    sendBtn.disabled = true;
+    sendBtn.innerHTML = '<span class="send-label">Sending…</span>';
+    setStatus('');
+
+    let res = null;
+    try {
+      const r = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' },
+      });
+      res = await r.json();
+    } catch (err) {
+      res = null;
+    }
+
+    if (!res || !res.ok) {
+      sendBtn.innerHTML = '<span class="send-label">Send</span>';
+      sendBtn.disabled = false;
+      sending = false;
+      setStatus((res && res.error) || 'We couldn’t send your message. Please try again or email us directly.');
+      return;
+    }
+
+    contactForm.reset();
+    sendBtn.disabled = false;
     const rings = [[COL.g, 256], [COL.m, 208], [COL.t, 160], [COL.o, 112], ['#fff', 64]];
     const T = 1.4;
     sendBtn.textContent = '';
@@ -547,6 +610,53 @@
       sending = false;
     }, 4200);
   });
+
+  /* ---------------------------------------------------------
+     Hero: cuando el globo termina de abrirse, el texto se
+     escribe letra por letra. Con prefers-reduced-motion
+     el texto aparece directo.
+     --------------------------------------------------------- */
+  const heroTitle = $('.hero-title');
+  const heroBubble = $('.hero-bubble');
+  if (heroTitle && heroBubble && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroTitle.setAttribute('aria-label', heroTitle.textContent.replace(/\s+/g, ' ').trim());
+
+    // cada letra en su span: el texto ocupa su lugar desde el principio
+    const chars = [];
+    const walker = document.createTreeWalker(heroTitle, NodeFilter.SHOW_TEXT);
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    textNodes.forEach(node => {
+      const text = node.textContent.replace(/\s+/g, ' ');
+      const frag = document.createDocumentFragment();
+      for (const c of text) {
+        const span = document.createElement('span');
+        span.className = 'ch';
+        span.setAttribute('aria-hidden', 'true');
+        span.textContent = c;
+        frag.appendChild(span);
+        chars.push(span);
+      }
+      node.replaceWith(frag);
+    });
+    heroTitle.classList.add('is-typing');
+
+    let started = false;
+    const type = () => {
+      if (started) return;
+      started = true;
+      let i = 0;
+      const next = () => {
+        const ch = chars[i++];
+        ch.classList.add('on');
+        if (i < chars.length) setTimeout(next, ch.textContent === ' ' ? 40 : 55 + Math.random() * 35);
+        else heroTitle.classList.remove('is-typing');
+      };
+      setTimeout(next, 150);
+    };
+    heroBubble.addEventListener('animationend', type, { once: true });
+    setTimeout(type, 1400); // por si la animación del globo no corre
+  }
 
   /* ---------------------------------------------------------
      Video "Our Brand Evolution": carga diferida, autoplay

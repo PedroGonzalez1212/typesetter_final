@@ -81,58 +81,107 @@ textarea::placeholder { color: #d9d9d4; }
   background: radial-gradient(circle at 0% 100%, transparent 120px, var(--o) 120.5px);
 }
 
+/* --u: unidad del bloque logo + globo (medidas tomadas del diseño, 908px de ancho) */
 .hero-content {
+  --u: clamp(1px, min(calc(100vw / 908), calc(100vh / 470)), 2.2px);
   position: absolute;
   inset: 52px 0 0 0;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   align-content: center;
-  flex-wrap: wrap;
-  gap: clamp(40px, 6vw, 96px);
-  padding: clamp(24px, 5vh, 64px) clamp(32px, 8vw, 140px) clamp(24px, 5vh, 64px) clamp(32px, 6vw, 96px);
+  gap: calc(var(--u) * 119);
+  /* el conjunto queda centrado en la parte blanca */
+  padding: 0;
+  height: max-content;
+  margin: auto 0;
 }
 
+/* logo abajo a la izquierda, globo arriba a la derecha */
 .hero-brand {
-  flex: 0 1 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: clamp(14px, 3vh, 32px);
-  align-self: center;
+  position: relative;
+  flex: none;
+  width: calc(var(--u) * 366);
+  height: calc(var(--u) * 254);
 }
 
 .hero-logo {
-  --logo-w: min(clamp(200px, 38vh, 380px), 70vw);
-  width: var(--logo-w);
+  position: absolute;
+  left: calc(var(--u) * -16.7);
+  bottom: calc(var(--u) * -14.3);
+  width: calc(var(--u) * 159);
   height: auto;
   display: block;
-  margin-left: calc(var(--logo-w) * -0.1046 + 2px);
+}
+
+.hero-bubble {
+  position: absolute;
+  left: calc(var(--u) * 85);
+  top: 0;
+  width: calc(var(--u) * 281);
+  height: calc(var(--u) * 128);
+}
+.hero-bubble-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .12));
+}
+.hero-bubble-shape path {
+  fill: #fff;
+  stroke: #111;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
 }
 
 .hero-title {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(var(--u) * 114);
+  padding-left: calc(var(--u) * 24);
   font-family: 'Nunito', sans-serif;
-  font-size: clamp(32px, 3.4vw, 54px);
-  line-height: 1.02;
+  font-size: calc(var(--u) * 25);
+  line-height: 1.08;
   font-weight: 300;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.2px;
+  color: #222;
 }
 .hero-title b { font-weight: 800; }
 
+/* Entrada: el globo se abre desde la punta y después se escribe el texto */
+.hero-bubble {
+  transform-origin: calc(var(--u) * 3) 100%;
+  animation: bubble-in .6s var(--ease-pop) .35s both;
+}
+@keyframes bubble-in {
+  from { transform: scale(0); opacity: 0; }
+  40%  { opacity: 1; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.hero-title.is-typing .ch { visibility: hidden; }
+.hero-title.is-typing .ch.on { visibility: visible; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bubble { animation: none; }
+}
+
 .hero-nav {
   position: relative;
-  align-self: stretch;
   display: flex;
 }
+/* las píldoras van de la altura del globo hasta la base del logo */
 .hero-nav ul {
   list-style: none;
-  margin: 0;
+  margin: calc(var(--u) * 8 - 18px) 0 calc(var(--u) * 6 - 18px);
   padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 12px;
-  padding-top: calc(min(clamp(200px, 38vh, 380px), 70vw) * 0.066 - 2px);
 }
 .hero-nav li { position: relative; }
 
@@ -217,7 +266,7 @@ textarea::placeholder { color: #d9d9d4; }
 .ex-card.is-open { box-shadow: 0 14px 30px rgba(0, 0, 0, .18); }
 
 .ex-title {
-  font-weight: 700;
+  font-weight: 600;
   font-size: 35px;
   line-height: 1.02;
   transition: opacity .25s;
@@ -249,13 +298,6 @@ textarea::placeholder { color: #d9d9d4; }
   line-height: 1.35;
   max-width: 470px;
   text-wrap: pretty;
-}
-.ex-info {
-  margin-top: 14px;
-  font-weight: 600;
-  font-style: italic;
-  font-size: 12px;
-  letter-spacing: .2px;
 }
 
 /* ---------- Expertise: features ---------- */
@@ -298,7 +340,7 @@ textarea::placeholder { color: #d9d9d4; }
   position: relative;
   text-align: center;
   font-size: 21px;
-  font-weight: 300;
+  font-weight: 600;
   color: var(--c);
 }
 .feature-text {
@@ -327,7 +369,7 @@ textarea::placeholder { color: #d9d9d4; }
   display: flex;
   align-items: center;
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 600;
   color: var(--c);
   box-shadow: 0 6px 16px rgba(0, 0, 0, .07);
   clip-path: inset(0 100% 0 0 round 0 22px 22px 0);
@@ -479,7 +521,7 @@ textarea::placeholder { color: #d9d9d4; }
 }
 
 .contact-form {
-  width: 355px;
+  width: 380px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -495,12 +537,74 @@ textarea::placeholder { color: #d9d9d4; }
   outline: none;
 }
 .field:focus { border-color: #fff; }
-.field-row {
+/* Servicios: chips seleccionables, se pintan con el color de cada servicio */
+.chips {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 10px;
+  /* columnas al ancho de su texto; el espacio que sobra se reparte */
+  grid-template-columns: auto auto;
+  gap: 8px 10px;
+  margin: 2px 0 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
 }
-.field-row .field { min-width: 0; }
+.chips-legend {
+  padding: 0 0 6px;
+  color: #d9d9d4;
+  font: 400 16px 'Titillium Web', sans-serif;
+}
+.chip {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.chip input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.chip span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* mismo alto que los inputs (34px + borde) */
+  height: 37px;
+  padding: 0 14px 0 12px;
+  border-radius: 18.5px;
+  border: 1.5px solid #e6e6e2;
+  box-sizing: border-box;
+  color: #fff;
+  font: 400 16px 'Titillium Web', sans-serif;
+  white-space: nowrap;
+  transition: background-color .2s, border-color .2s, color .2s;
+}
+/* circulito tipo checkbox: indica que se puede tocar */
+.chip span::before {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid #e6e6e2;
+  box-sizing: border-box;
+  transition: background-color .2s, border-color .2s, box-shadow .2s;
+}
+.chip:hover span,
+.chip:hover span::before { border-color: var(--c); }
+.chip input:checked + span {
+  background: var(--c);
+  border-color: var(--c);
+  color: var(--fg, #fff);
+}
+.chip input:checked + span::before {
+  border-color: var(--fg, #fff);
+  background: var(--fg, #fff);
+  box-shadow: inset 0 0 0 2px var(--c);
+}
+.chip input:focus-visible + span { outline: 2px solid #fff; outline-offset: 2px; }
+.chips[aria-invalid="true"] .chip span { border-color: var(--o); }
 .field--area {
   height: 62px;
   padding: 10px 25px;
@@ -538,6 +642,23 @@ textarea::placeholder { color: #d9d9d4; }
   position: relative;
   font-weight: 700;
 }
+.send:disabled { cursor: default; opacity: .7; }
+.field[aria-invalid="true"] { border-color: var(--o); }
+.form-status {
+  min-height: 1.4em;
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font: 400 14px 'Titillium Web', sans-serif;
+}
+.form-status:empty { display: none; }
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
 
 /* ---------- Footer ---------- */
 .footer {
@@ -568,8 +689,18 @@ textarea::placeholder { color: #d9d9d4; }
 }
 .footer-office { margin-top: 16px; }
 .footer-mail { font-weight: 300; }
+.footer-certs {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
 .footer-cert {
   width: 128px;
+  height: auto;
+  display: block;
+}
+.footer-gptw {
+  width: 52px;
   height: auto;
   display: block;
 }
@@ -712,7 +843,7 @@ textarea::placeholder { color: #d9d9d4; }
     z-index: 3;
   }
 
-  .step--1 .step-label { left: 344px; top: 208px; width: 246px; box-sizing: border-box; padding-left: 66px; }
+  .step--1 .step-label { left: 344px; top: 208px; padding: 0 20px 0 66px; }
   .step--1 .step-num   { left: 246px; top: 161px; }
   .step--1 .step-text  { left: 412px; top: 268px; --h: 130; }
 
@@ -724,7 +855,7 @@ textarea::placeholder { color: #d9d9d4; }
   .step--3 .step-num   { left: 300px; top: 506px; }
   .step--3 .step-text  { left: 463px; top: 618px; --h: 110; }
 
-  .step--4 .step-label { left: 600px; top: 833px; width: 214px; box-sizing: border-box; padding-left: 64px; }
+  .step--4 .step-label { left: 600px; top: 833px; padding: 0 20px 0 64px; }
   .step--4 .step-num   { left: 502px; top: 786px; }
   .step--4 .step-text  { left: 663px; top: 898px; --h: 110; }
 }

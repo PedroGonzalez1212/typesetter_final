@@ -186,13 +186,10 @@
 /* ---------- Tablet ---------- */
 @media (min-width: 768px) and (max-width: 1023px) {
   .hero-content {
-    gap: 56px;
-    padding: 48px 48px;
+    --u: calc((100vw - 330px) / 486);
+    gap: calc(var(--u) * 80);
+    padding: 48px 24px;
   }
-  .hero-logo {
-    --logo-w: clamp(220px, 32vw, 300px);
-  }
-  .hero-title { font-size: 40px; }
 }
 
 /* ---------- Mobile ---------- */
@@ -206,6 +203,7 @@
   .band--last::after  { background: radial-gradient(circle at 0% 100%, transparent 64px, var(--o) 64.5px); }
 
   .hero-content {
+    --u: min(calc((100vw - 48px) / 370), 1.3px);
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
@@ -213,21 +211,9 @@
     gap: 40px;
     padding: 72px 24px 48px;
   }
-  .hero-brand {
-    align-self: center;
-    align-items: center;
-  }
-  .hero-logo {
-    --logo-w: min(62vw, 260px);
-    margin-left: 0;
-  }
-  .hero-title {
-    font-size: clamp(28px, 8vw, 38px);
-    text-align: center;
-  }
   /* el menú se centra como bloque; las píldoras quedan alineadas entre sí */
   .hero-nav { align-self: center; }
-  .hero-nav ul { padding-top: 0; gap: 14px; }
+  .hero-nav ul { margin: 0; gap: 14px; }
   .nav-link { font-size: 19px; }
 
   /* Secciones */
@@ -301,7 +287,7 @@
   .contact-form { width: 100%; max-width: 420px; margin: 0 auto; }
   .field { height: 40px; border-radius: 20px; }
   .field--area { height: 96px; }
-  .field-row { grid-template-columns: 1fr 1fr; }
+  .chip span { height: 43px; border-radius: 21.5px; }
   .send { height: 42px; border-radius: 21px; margin-top: 6px; }
 
   /* Footer */
@@ -315,6 +301,6 @@
   .footer-logo { width: 150px; margin: 0 0 0 -8px; }
 }
 
-@media (max-width: 380px) {
-  .field-row { grid-template-columns: 1fr; }
+@media (max-width: 420px) {
+  .chips { grid-template-columns: 1fr; }
 }
