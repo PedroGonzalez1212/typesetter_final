@@ -1,0 +1,23 @@
+# The Typesetter
+
+> The Typesetter is a company based in Córdoba, Argentina, with an office in Florida, USA. Tagline: "Making global communication easy."
+
+## Services
+All four are described at [Expertise](https://www.thetypesetter.com.ar/#services); the working process is at [Methodology](https://www.thetypesetter.com.ar/#methodology).
+
+- Content Globalization: Translation, Multilingual DTP, Video Localization, Subtitling, Voice-over, Dubbing.
+- Digital Accessibility: Document Remediation, Large Print, Alt Text, Audio Description, Closed Captions.
+- e-Learning & Video: e-Learning Courses, AI Capsules, Motion Graphics, Corporate Assets, Training Experiences.
+- Brand & Marketing: Visual Identity, Websites, Landing Pages, Social Media Campaigns, Analytics.
+
+## Quality
+- Certifications shown on the website: ISO 9001:2015 and ISO 17100:2015 (TÜV Rheinland); Great Place To Work, Certified 2026 Argentina.
+
+## Offices
+- Córdoba, Argentina: Nazaret 2887, Piso 3, Oficina 22
+- Florida, USA: 255 Aragon Avenue, 2nd Floor, Coral Gables, 33134
+
+## Contact
+- Email: hello@thetypesetter.com.ar
+- Website: [The Typesetter](https://www.thetypesetter.com.ar/)
+- Contact form: [Contact us](https://www.thetypesetter.com.ar/#contact)

@@ -1,0 +1,13 @@
+# BEGIN TYPESETTER STAGING LOCK
+# STAGING ONLY (staging.thetypesetter.com.ar). NEVER copy this block to production.
+# 1) Create the password file OUTSIDE the web root, e.g. via cPanel "Directory Privacy"
+#    or: htpasswd -c /home/CPANEL_USER/.htpasswd_staging USERNAME
+# 2) Replace the AuthUserFile path below.
+
+Header always set X-Robots-Tag "noindex, nofollow, noarchive"
+
+AuthType Basic
+AuthName "Staging - restricted"
+AuthUserFile /home/CPANEL_USER/.htpasswd_staging
+Require valid-user
+# END TYPESETTER STAGING LOCK

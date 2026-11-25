@@ -5,6 +5,16 @@
    Tablet y mobile están en responsive.css
    ========================================================= */
 
+/* Fuentes autoalojadas (subset latin, mismas que Google Fonts).
+   Nunito: un único archivo variable, declarado en los 3 pesos usados. */
+@font-face { font-family: 'Nunito'; font-style: normal; font-weight: 300; font-display: swap; src: url(../assets/fonts/nunito-latin-var.woff2) format('woff2'); }
+@font-face { font-family: 'Nunito'; font-style: normal; font-weight: 800; font-display: swap; src: url(../assets/fonts/nunito-latin-var.woff2) format('woff2'); }
+@font-face { font-family: 'Nunito'; font-style: normal; font-weight: 900; font-display: swap; src: url(../assets/fonts/nunito-latin-var.woff2) format('woff2'); }
+@font-face { font-family: 'Titillium Web'; font-style: normal; font-weight: 300; font-display: swap; src: url(../assets/fonts/titillium-web-300.woff2) format('woff2'); }
+@font-face { font-family: 'Titillium Web'; font-style: normal; font-weight: 400; font-display: swap; src: url(../assets/fonts/titillium-web-400.woff2) format('woff2'); }
+@font-face { font-family: 'Titillium Web'; font-style: normal; font-weight: 600; font-display: swap; src: url(../assets/fonts/titillium-web-600.woff2) format('woff2'); }
+@font-face { font-family: 'Titillium Web'; font-style: normal; font-weight: 700; font-display: swap; src: url(../assets/fonts/titillium-web-700.woff2) format('woff2'); }
+
 :root {
   --g: #ABD125;
   --m: #E51A54;
@@ -691,6 +701,7 @@ textarea::placeholder { color: #d9d9d4; }
 }
 .footer-logo {
   width: 178px;
+  height: auto;
   margin: -12px 0 0 -10px;
   display: block;
 }

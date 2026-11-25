@@ -1,0 +1,83 @@
+# BEGIN TYPESETTER SEO
+# Merge into the live .htaccess (production only). Do NOT copy to staging.
+# Generated 2026-11-25. Test every rule on staging first (see SEO_AUDIT.md > Deploy checklist).
+# If the live file already has http->https or www rules, remove them: this block replaces them
+# so every variant reaches https://www.thetypesetter.com.ar/ in ONE hop (308).
+
+# ---------- Canonical host + HTTPS (single hop, 308) ----------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # apex (http or https) -> https://www
+  RewriteCond %{HTTP_HOST} ^thetypesetter\.com\.ar$ [NC]
+  RewriteRule ^ https://www.thetypesetter.com.ar%{REQUEST_URI} [R=308,L]
+
+  # www over plain http -> https://www
+  RewriteCond %{HTTP_HOST} ^www\.thetypesetter\.com\.ar$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+  RewriteRule ^ https://www.thetypesetter.com.ar%{REQUEST_URI} [R=308,L]
+</IfModule>
+
+# ---------- Errors ----------
+ErrorDocument 404 /404.html
+
+# ---------- Content types ----------
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType application/manifest+json .webmanifest
+</IfModule>
+<FilesMatch "^(robots|llms)\.txt$">
+  ForceType "text/plain; charset=utf-8"
+</FilesMatch>
+
+# Working docs must never be public
+<FilesMatch "\.md$">
+  Require all denied
+</FilesMatch>
+
+# ---------- Compression ----------
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml application/xml application/javascript text/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript text/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+# ---------- Cache-Control ----------
+<IfModule mod_headers.c>
+  # HTML + root files: short
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=300, must-revalidate"
+  </FilesMatch>
+
+  # Fonts: file names are versioned (rename the file if it ever changes) -> long + immutable
+  <FilesMatch "\.woff2$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Hashed/versioned CSS & JS (e.g. styles.3f9a1c2b.css) -> long + immutable
+  <FilesMatch "\.[0-9a-f]{8,}\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Today's CSS/JS are NOT hashed -> 1 week, must revalidate
+  <FilesMatch "^(styles|responsive|main)\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800, must-revalidate"
+  </FilesMatch>
+
+  # Images / video: same file names may be replaced -> 30 days
+  <FilesMatch "\.(png|jpe?g|webp|avif|svg|ico|mp4|webm)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+
+  # ---------- Security headers (no rendering impact) ----------
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # CSP: REPORT-ONLY (does not block anything). Check the browser console, then decide.
+  # Fonts are self-hosted, so no Google Fonts origins are needed.
+  Header always set Content-Security-Policy-Report-Only "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self'; connect-src https://api.web3forms.com; form-action https://api.web3forms.com; base-uri 'self'; frame-ancestors 'self'"
+</IfModule>
+# END TYPESETTER SEO
