@@ -181,6 +181,8 @@
     padding: 56px 40px 48px;
     font-size: 13.5px;
   }
+  .footer-grid > picture { min-width: 150px; }
+  .footer-bar { padding-left: 40px; padding-right: 40px; }
 }
 
 /* ---------- Tablet ---------- */
@@ -299,7 +301,9 @@
     padding: 48px 24px 40px;
     font-size: 14px;
   }
-  .footer-logo { width: 150px; margin: 0 0 0 -8px; }
+  .footer-grid > picture { position: static; }
+  .footer-bar { padding: 8px 24px; justify-content: center; text-align: center; }
+  .footer-logo { position: static; top: auto; left: auto; width: 150px; height: auto; margin: 0 0 0 -8px; }
 }
 
 @media (max-width: 420px) {

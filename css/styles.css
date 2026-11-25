@@ -693,45 +693,66 @@ textarea::placeholder { color: #d9d9d4; }
 }
 .footer-grid {
   display: grid;
-  grid-template-columns: 255px 247px 1fr;
-  padding: 68px 0 56px 260px;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 68px 260px 56px 260px;
   font-size: 12.5px;
   line-height: 1.2;
   font-weight: 300;
 }
+.footer-grid > picture { display: block; position: relative; min-height: 0; width: 130px; }
+/* el alto del logo define la fila; el resto del contenido se reparte dentro */
 .footer-logo {
-  width: 178px;
-  height: auto;
-  margin: -12px 0 0 -10px;
+  /* el PNG trae margen transparente: se recorta para que lo visible
+     (la tipografía) toque la línea superior e inferior de las columnas */
+  position: absolute;
+  top: -8.7%;
+  left: -16px;
+  height: 117%;
+  width: auto;
+  max-width: none;
   display: block;
 }
+.footer-col { display: flex; flex-direction: column; }
 .footer-head {
   font-size: inherit;
   font-weight: 700;
   margin-bottom: 8px;
 }
-.footer-head--quality { margin-top: 28px; }
-.footer-office { margin-top: 16px; }
+.footer-head--quality { margin-top: auto; padding-top: 8px; }
+.footer-office { margin-top: auto; padding-top: 16px; }
 .footer-mail { font-weight: 300; }
 .footer-certs {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  align-items: flex-end;
+  gap: 17px;
 }
 .footer-cert {
-  width: 128px;
+  width: 94px;
   height: auto;
   display: block;
 }
 .footer-gptw {
-  width: 52px;
+  width: 38px;
   height: auto;
   display: block;
 }
 .footer-bar {
-  height: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+  min-height: 30px;
+  padding: 6px 260px 6px 260px;
   background: var(--ink-2);
+  color: #fff;
+  font-size: 11.5px;
+  line-height: 1.3;
+  font-weight: 300;
 }
+.footer-bar a { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
 
 
 /* =========================================================
@@ -777,7 +798,8 @@ textarea::placeholder { color: #d9d9d4; }
     margin-right: calc(var(--bleed, 0) * -1px);
   }
   .contact { padding-left: calc(260px + var(--bleed, 0) * 1px); }
-  .footer-grid { padding-left: calc(260px + var(--bleed, 0) * 1px); }
+  .footer-grid { padding-left: calc(260px + var(--bleed, 0) * 1px); padding-right: calc(260px + var(--bleed, 0) * 1px); }
+  .footer-bar { padding-left: calc(260px + var(--bleed, 0) * 1px); padding-right: calc(260px + var(--bleed, 0) * 1px); }
 
   .tagline {
     position: relative;
