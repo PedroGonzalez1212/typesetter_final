@@ -338,9 +338,10 @@
     const lis = nav.querySelectorAll('li');
     state.s = 1;
     state.geo = buildFluidGeo();
+    // lecturas de layout antes de escribir en el DOM (evita un reflow forzado)
+    state.step = lis[1].getBoundingClientRect().top - lis[0].getBoundingClientRect().top;
     renderWorm();
     updateSteps();
-    state.step = lis[1].getBoundingClientRect().top - lis[0].getBoundingClientRect().top;
     updateBars();
   }
 
@@ -903,10 +904,11 @@
 
   window.addEventListener('resize', layout);
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => { refresh(); markClippedSteps(); });
+    // queueRefresh agrupa (rAF) los refresh de fonts.ready y load en uno solo
+    document.fonts.ready.then(() => { queueRefresh(); requestAnimationFrame(markClippedSteps); });
   }
   window.addEventListener('load', () => {
-    refresh();
+    queueRefresh();
     if (location.hash) requestAnimationFrame(() => scrollToHash(location.hash, false));
   });
 

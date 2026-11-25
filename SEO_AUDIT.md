@@ -236,7 +236,7 @@ Canonical host everywhere: **`https://www.thetypesetter.com.ar/`** (canonical, o
 | SEO-08 JSON-LD | **Done** | `ProfessionalService` + `WebSite`, parsed OK; every value found on the page (AR/US are the ISO codes for the visible "Argentina"/"USA"). No `sameAs` (no profile linked on the page), no phones, ratings, prices, awards, FAQ |
 | SEO-09 OG/Twitter | **Done / design asset pending** | Tags point to `https://www.thetypesetter.com.ar/assets/og/og-image.jpg`, which **does not exist yet**, so previews have no image until it is uploaded. No `og:image:alt` (would be new copy) |
 | SEO-10 / 11 LCP + image dimensions | **Done** | Hero logo: `width/height`, `fetchpriority=high`, `<link rel=preload as=image>`. LCP 3.64 s → 2.95 s (7-run median, simulated mobile) |
-| SEO-12 image re-encode | **Not applied** | Lossless WebP of these small PNGs saves a few KB and adds `<picture>` markup; real savings need resized (@2x) files, which can't be pixel-identical. Optional |
+| SEO-12 image re-encode | **Done (commit 2)** | Lossless WebP (same pixel dimensions, decoded RGBA verified identical) for hero/footer logo, TÜV and Great Place To Work via `<picture>` with the PNG as fallback `<img>` (width/height/alt/classes unchanged); hero preload now `type="image/webp"`. 103 KB of PNG → 41 KB of WebP. No resizing. `404.html` uses the same markup. `.webp` MIME added to `htaccess.seo-block` |
 | SEO-13 fonts | **Done** | Self-hosted; 2 third-party origins removed (15 → 12 requests, 0 third-party). Preloaded only `nunito` (hero/headings) and `titillium-web-400` (body). **Pixel-compare: 12/12 screenshots identical** (see 9.3) |
 | SEO-14 video source order | **Retracted — no issue** | Your correction was right. Network log (Playwright, 375 px / 1440 px): Chromium and Firefox download `tts-intro-720.mp4` at 375 and `tts-intro-1080.webm` at 1440; WebKit reports the same `currentSrc` (its request log was empty, so only `currentSrc` is evidence there). Source order already is media-qualified first, fallback last. Only change: `preload="metadata"` (no effect before the JS sets `src`, no extra requests, reduced-motion logic untouched). Side note: the 1080 webm (4.65 MB) is *larger* than the 1080 mp4 (4.42 MB); re-encoding or dropping it is a possible later saving |
 | SEO-15 / 16 cache + security headers | **Ready, not live** | In `htaccess.seo-block`. Fonts: 1 y + `immutable`. Hashed CSS/JS: 1 y + `immutable` (rule ready; files aren't hashed today). Current CSS/JS: 1 week + revalidate (**not** immutable: unhashed files would go stale after an edit). Images/video 30 d. HTML 5 min. HSTS `max-age=31536000` (no `includeSubDomains`, no `preload`). CSP **report-only** |
@@ -254,18 +254,20 @@ Canonical host everywhere: **`https://www.thetypesetter.com.ar/`** (canonical, o
 
 **Lighthouse (local build, simulated mobile slow-4G / desktop preset).** Before = original `index.html`, after = current. 3-run medians plus 4 extra runs each (7 total) because TBT turned out to be very noisy.
 
-| Metric | Before (mobile) | After (mobile) | Before (desktop) | After (desktop) |
+| Metric | Original (mobile, 7 runs) | Commit 1 (mobile, 7 runs) | **Final, commit 2 (mobile, 7 runs)** | Original → final (desktop, 3 runs) |
 |---|---|---|---|---|
-| SEO | 91 | **100** | 91 | **100** |
-| Accessibility / Best Practices | 100 / 100 | 100 / 100 | 100 / 100 | 100 / 100 |
-| Performance | 88 (3 runs) / 88 (7) | 96 (3 runs) / **85 (7)** | 98 | 98 |
-| LCP | 3.67 s (3) / 3.64 s (7) | 2.63 s (3) / **2.95 s (7)** | 1.13 s | 1.06 s |
-| FCP | 2.0 s | 1.35 s | 0.59 s | 0.75 s |
-| TBT | 5 ms | **356 ms (7-run) — worse** | 0 ms | 0 ms |
-| CLS | 0 | 0 | 0.001 | 0 |
-| Requests / weight | 15 / 336 KB | 12 / 269 KB | 15 / 336 KB | 12 / 269 KB |
+| SEO | 92 | 100 | **100** | 91 → **100** |
+| Accessibility / Best Practices | 100 / 100 | 100 / 100 | **100 / 100** | 100 / 100 → 100 / 100 |
+| Performance | 88 | 85 | **88** | 98 → **100** |
+| LCP | 3.64 s | 2.95 s | **3.02 s** | 1.13 s → **0.69 s** |
+| FCP | 2.00 s | 1.52 s | **1.64 s** | 0.59 s → **0.38 s** |
+| TBT | 5 ms | 356 ms | **317 ms** | 0 → 0 ms |
+| CLS | 0 | 0 | **0** | 0.001 → **0** |
+| Requests / weight | 15 / 336 KB | 12 / 269 KB | **12 / 251 KB** | 15 / 336 KB → 12 / 251 KB |
 
-Honest reading: **SEO +9, LCP about −0.7 s, earlier FCP on mobile, −3 requests, no third-party origins, CLS 0.** The Performance *score* is not clearly better, because **mobile TBT is higher in the lab** (original: 1–18 ms in 6 of 7 runs; now 1–733 ms, median 356). Run-to-run noise is huge (a control variant without the font preloads gave 0 / 1,808 / 90 / 1 / 341 ms), so I can't prove a cause. My hypothesis: FCP now happens about 0.5 s earlier (fonts no longer block rendering), which moves the unchanged ~200 ms `main.js` start-up task inside the FCP→TTI window that TBT measures. If you want it reduced, the lever is `js/main.js` initialisation (geometry of the line), which is outside the allowed scope; say the word and I'll propose it separately. Desktop is unaffected (TBT 0).
+Per-run mobile Performance/TBT (final): 88/317, 78/573, 91/227, 74/700, 91/242, 78/561, 91/180 — i.e. 74–91, noise dominated.
+
+Honest reading (final): **SEO +8/+9, mobile LCP −0.6 s (desktop −0.45 s), FCP earlier, −3 requests, −85 KB, no third-party origins, CLS 0.** The mobile Performance *score* is back to the original 88 (median), not better: **mobile TBT stays higher in the lab than in the original build** (median 317 ms vs 5 ms; individual runs range 180–700 ms vs 1–268 ms). Lighthouse's simulated TBT depends on where the page's layout work lands relative to FCP, and run-to-run noise is large. Profiling (see §10) shows the biggest long task is the page's first forced layout, not `main.js` logic, which is why the two `main.js` changes (§10) did not move TBT. Desktop is clean (100 / TBT 0).
 
 **Other checks**
 - JSON-LD: parses; all values present in the page text.
@@ -311,3 +313,18 @@ Honest reading: **SEO +9, LCP about −0.7 s, earlier FCP on mobile, −3 reques
 - Merge `htaccess.seo-block` into the live `.htaccess` (send me the live file if you want me to produce the merged version).
 - Google Search Console + Bing Webmaster verification and sitemap submission; Google Business Profile; directory listings; update old NAP (phones / `clientsuccessteam@`) wherever it was published.
 - Later: `includeSubDomains` / `preload` for HSTS once staging has a valid certificate; enforce the CSP after the report-only period; treat the `js/main.js` start-up cost (TBT) as a separate task; the future Spanish version (see §4).
+
+---
+
+# 10. Commit 2 — `main.js` start-up (A + B), WebP images
+
+**`js/main.js` (8 lines):**
+- **A:** `window load` and `document.fonts.ready` now call the existing rAF-coalesced `queueRefresh()` instead of `refresh()` directly (`markClippedSteps` runs in the following rAF; the deep-link `scrollToHash` still runs after the refresh).
+- **B:** in `fluidMeasure()`, the `getBoundingClientRect` reads of the nav items now happen before `renderWorm()` / `updateSteps()` write to the DOM.
+- Not applied (your decision): C (`innerText` precompute), D (gating the `tick` loop), `content-visibility`.
+
+**Verification (all against the commit-1 build):** 12/12 screenshots at 375/768/1280/1440 px — 0 differing pixels; document heights 5,306 / 4,592 / 5,715 px (412 / 768 / 1440 wide) unchanged; **line animation frame by frame**: 100 consecutive rAF frames after instant jumps to mid-page, end, back to top and a second mid point, at 412, 768 and 1440 px, recording every line segment's `stroke-dashoffset`, nav-bar heights, step `.is-on` state and nav class → **0 of 1,200 frames differ** (the baseline itself was re-run first and is deterministic); deep links `/#services`, `#methodology`, `#brand-evolution`, `#contact` land at identical scroll positions and focus at 412 and 1440 px.
+
+**Result:** no measurable TBT change (see §9.3). The gain is a small amount of avoided duplicate work, not a user-visible difference.
+
+**Not done:** the request to apply a standalone `.htaccess` — I don't have that earlier message (the last instruction I received said not to create or overwrite `.htaccess` in the repo and that you'd send the live file). No `.htaccess` was created; `htaccess.seo-block` is unchanged apart from the `.webp` MIME line. If you want a standalone file with `<IfModule>` wrappers (uploaded last, deleted if the site returns 500), tell me and I'll generate it as a separate, clearly-named file.
