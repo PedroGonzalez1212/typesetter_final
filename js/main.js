@@ -483,10 +483,17 @@
     card.addEventListener('mouseenter', () => {
       if (state.desktop && exp !== i) setExp(i);
     });
+    // tipo de puntero real del último pointerdown; sin pointerdown previo
+    // (teclado, lectores de pantalla) queda vacío
+    let ptr = '';
+    card.addEventListener('pointerdown', ev => { ptr = ev.pointerType; });
     card.addEventListener('click', ev => {
+      const type = ptr;
+      ptr = '';
       if (!state.desktop) setExp(exp === i ? -1 : i);
-      // escritorio: el teclado (detail 0) abre y cierra; el mouse ya abrió con hover
-      else if (ev.target.closest('.ex-toggle')) setExp(ev.detail === 0 && exp === i ? -1 : i);
+      // escritorio: el mouse ya abrió con hover y el clic no cierra;
+      // teclado, lector de pantalla y táctil alternan abrir/cerrar
+      else if (ev.target.closest('.ex-toggle')) setExp(type !== 'mouse' && exp === i ? -1 : i);
     });
   });
   exGrid.addEventListener('mouseleave', () => {

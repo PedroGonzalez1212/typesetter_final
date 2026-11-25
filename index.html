@@ -59,8 +59,8 @@
     <section class="tagline" data-screen-label="Tagline"></section>
 
     <!-- ============ EXPERTISE ============ -->
-    <section class="expertise" id="services" data-screen-label="Expertise">
-      <h2 class="expertise-title">Expertise</h2>
+    <section class="expertise" id="services" data-screen-label="Expertise" aria-labelledby="expertise-heading">
+      <h2 class="expertise-title" id="expertise-heading">Expertise</h2>
 
       <div class="ex-grid" id="exGrid">
         <article class="ex-card" style="--c:var(--o)">
@@ -144,11 +144,11 @@
     </section>
 
     <!-- ============ METHODOLOGY ============ -->
-    <section class="method" id="methodology" data-screen-label="Methodology">
-      <h2 class="method-title">Methodology</h2>
+    <section class="method" id="methodology" data-screen-label="Methodology" aria-labelledby="method-heading">
+      <h2 class="method-title" id="method-heading">Methodology</h2>
 
       <div class="steps">
-        <div class="step step--1" style="--c:var(--g)">
+        <div class="step step--1" style="--c:var(--g);--fg:var(--ink)">
           <h3 class="step-label">Explore</h3>
           <div class="step-num">01</div>
           <p class="step-text">Before we propose, we understand. We get to know your goals, audience, content and context, and spot gaps before they become problems.</p>
@@ -163,7 +163,7 @@
           <div class="step-num">03</div>
           <p class="step-text">Let’s make it happen. We bring together the right skills to write, design, translate, produce and build, in any language, format and channel.</p>
         </div>
-        <div class="step step--4" style="--c:var(--o)">
+        <div class="step step--4" style="--c:var(--o);--fg:var(--ink)">
           <h3 class="step-label">Deliver &amp; Improve</h3>
           <div class="step-num">04</div>
           <p class="step-text">On time and ready to use. Then we look at what worked, from your feedback to campaign results, to make the next project even better.</p>
@@ -172,7 +172,7 @@
     </section>
 
     <!-- ============ BRAND EVOLUTION + CONTACT ============ -->
-    <section class="showcase">
+    <section class="showcase" aria-labelledby="brand-evolution">
       <h2 class="showcase-title" id="brand-evolution" data-screen-label="Brand Evolution">Our Brand Evolution</h2>
       <div class="video" id="brandVideo">
         <video class="video-media" muted playsinline loop preload="none" poster="assets/video/tts-intro-poster.jpg" aria-label="The Typesetter brand evolution video">
@@ -186,6 +186,23 @@
         <button class="video-sound" type="button">Sound off</button>
       </div>
 
+      <details class="video-transcript">
+        <summary>Video transcript</summary>
+        <p>The video plays the on-screen text below, read aloud by a voice-over.</p>
+        <ol>
+          <li>The Typesetter logo, with the tagline “Making words look good”.</li>
+          <li>“Twenty years ago, we started with a simple question: could our creativity make global communication easier?”</li>
+          <li>“The industry kept changing.” Four icons appear: Languages, Formats, Technologies and Challenges.</li>
+          <li>“We kept finding new ways forward.”</li>
+          <li>“We built our greatest strength: a team that listens, finds solutions, and treats every project as its own.”</li>
+          <li>“Today, our identity evolves to reflect who we’ve become: a trusted partner, a creative problem solver.”</li>
+          <li>“Any language. Every format. All tools.”</li>
+          <li>“One team.” Photos of the team at events.</li>
+          <li>“20 years of evolution. Different appearance. Same essence.”</li>
+          <li>The new logo, with the line “Making global communication easy.”</li>
+        </ol>
+      </details>
+
       <div class="stripes" aria-hidden="true">
         <div class="stripe stripe--first" style="--c:var(--g)"></div>
         <div class="stripe" style="--c:var(--m)"></div>
@@ -194,8 +211,8 @@
       </div>
 
       <div class="contact" id="contact" data-screen-label="Contact">
-        <h2 class="contact-title">Contact us</h2>
-        <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <h2 class="contact-title" id="contact-heading">Contact us</h2>
+        <form class="contact-form" id="contactForm" aria-labelledby="contact-heading" action="https://api.web3forms.com/submit" method="POST" novalidate>
           <input type="hidden" name="access_key" value="090d9281-b4d4-4661-9116-a260f2d35d1e">
           <input type="hidden" name="subject" value="New contact from The Typesetter website">
           <input type="hidden" name="from_name" value="The Typesetter Website">

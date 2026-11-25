@@ -8,7 +8,7 @@
 :root {
   --g: #ABD125;
   --m: #E51A54;
-  --t: #008A98;
+  --t: #007A87;
   --o: #FFAB00;
   --ink: #22221E;
   --ink-2: #2B2B28;
@@ -255,9 +255,10 @@ textarea::placeholder { color: #d9d9d4; }
 .ex-card {
   position: relative;
   overflow: hidden;
-  background: var(--c);
+  background: #fff;
+  border: 3px solid var(--c);
   border-radius: 26px;
-  color: #fff;
+  color: var(--ink);
   cursor: default;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   transition: box-shadow .4s;
@@ -342,7 +343,7 @@ textarea::placeholder { color: #d9d9d4; }
   font-size: 21px;
   font-weight: 700;
   -webkit-text-stroke: 0.4px currentColor;
-  color: var(--c);
+  color: var(--ink);
 }
 .feature-text {
   position: relative;
@@ -373,7 +374,7 @@ textarea::placeholder { color: #d9d9d4; }
   font-size: 24px;
   font-weight: 700;
   -webkit-text-stroke: 0.4px currentColor;
-  color: var(--c);
+  color: var(--ink);
   box-shadow: 0 6px 16px rgba(0, 0, 0, .07);
   clip-path: inset(0 100% 0 0 round 0 22px 22px 0);
   transition: clip-path .6s var(--ease-grid) .25s;
@@ -388,7 +389,7 @@ textarea::placeholder { color: #d9d9d4; }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--fg, #fff);
   font-family: 'Nunito', sans-serif;
   font-weight: 900;
   font-size: 50px;
@@ -412,6 +413,19 @@ textarea::placeholder { color: #d9d9d4; }
 .step.is-on .step-text  { opacity: 1; transform: translateY(0); }
 
 /* ---------- Brand evolution + contacto ---------- */
+.video-transcript {
+  max-width: 760px;
+  margin: 24px auto 0;
+  padding: 0 24px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.video-transcript summary { cursor: pointer; font-weight: 600; }
+.video-transcript summary:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.video-transcript p { margin-top: 12px; }
+.video-transcript ol { margin: 10px 0 0 20px; padding: 0; }
+.video-transcript li { margin-top: 6px; }
+
 .showcase {
   position: relative;
   background: var(--ink);
