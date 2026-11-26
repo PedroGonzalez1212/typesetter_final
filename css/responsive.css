@@ -187,6 +187,7 @@
 
 /* ---------- Tablet ---------- */
 @media (min-width: 768px) and (max-width: 1023px) {
+  :root { --bw: calc((100vw - 330px) / 486); }
   .hero-content {
     --u: calc((100vw - 330px) / 486);
     gap: calc(var(--u) * 80);
@@ -196,6 +197,7 @@
 
 /* ---------- Mobile ---------- */
 @media (max-width: 767px) {
+  :root { --bw: min(calc((100vw - 48px) / 370), 1.3px); }
 
   /* Hero */
   .hero-bands { height: 32px; }
@@ -256,7 +258,6 @@
     width: 76px;
     height: 76px;
     font-size: 28px;
-    border-width: 6px;
     box-shadow: 4px 6px 10px rgba(0, 0, 0, .12);
   }
   .step-label {

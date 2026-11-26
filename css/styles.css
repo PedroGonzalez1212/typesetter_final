@@ -16,6 +16,8 @@
 @font-face { font-family: 'Titillium Web'; font-style: normal; font-weight: 700; font-display: swap; src: url(../assets/fonts/titillium-web-700.woff2) format('woff2'); }
 
 :root {
+  /* grosor del borde del globo del hero (1 unidad --u), compartido por otros bordes */
+  --bw: clamp(1px, min(calc(100vw / 908), calc(100vh / 470)), 2.2px);
   --g: #ABD125;
   --m: #E51A54;
   --t: #007A87;
@@ -266,7 +268,7 @@ textarea::placeholder { color: #d9d9d4; }
   position: relative;
   overflow: hidden;
   background: #fff;
-  border: 3px solid var(--c);
+  border: var(--bw) solid var(--c);
   border-radius: 26px;
   color: var(--ink);
   cursor: default;
@@ -361,6 +363,7 @@ textarea::placeholder { color: #d9d9d4; }
   line-height: 1.4;
   font-weight: 400;
 }
+.feature-text b { font-weight: inherit; }
 
 /* Animación de íconos (hover en escritorio, tap en touch) */
 .feature--lang:hover .ic-1,   .feature--lang.is-active .ic-1   { transform: translate(7px, -6px) scale(1.25) rotate(8deg); }
@@ -396,7 +399,7 @@ textarea::placeholder { color: #d9d9d4; }
   border-radius: 50%;
   box-sizing: border-box;
   background: #fff;
-  border: 9px solid var(--c);
+  border: var(--bw) solid var(--c);
   box-shadow: 8px 10px 14px rgba(0, 0, 0, .12);
   display: flex;
   align-items: center;
@@ -425,19 +428,6 @@ textarea::placeholder { color: #d9d9d4; }
 .step.is-on .step-text  { opacity: 1; transform: translateY(0); }
 
 /* ---------- Brand evolution + contacto ---------- */
-.video-transcript {
-  max-width: 760px;
-  margin: 24px auto 0;
-  padding: 0 24px;
-  font-size: 15px;
-  line-height: 1.45;
-}
-.video-transcript summary { cursor: pointer; font-weight: 600; }
-.video-transcript summary:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
-.video-transcript p { margin-top: 12px; }
-.video-transcript ol { margin: 10px 0 0 20px; padding: 0; }
-.video-transcript li { margin-top: 6px; }
-
 .showcase {
   position: relative;
   background: var(--ink);
@@ -484,12 +474,18 @@ textarea::placeholder { color: #d9d9d4; }
 .video-play svg { transition: opacity .3s, transform .3s var(--ease-pop); }
 .video.is-playing .video-play svg { opacity: 0; transform: scale(.8); }
 .video-play:focus-visible { outline: 3px solid var(--t); outline-offset: -8px; border-radius: inherit; }
-.video-sound {
+.video-sound,
+.video-cc {
   position: absolute;
   right: 16px;
-  bottom: 16px;
+  top: 16px;
   height: 34px;
   padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  text-align: center;
   border: 0;
   border-radius: 17px;
   background: #fff;
@@ -498,8 +494,11 @@ textarea::placeholder { color: #d9d9d4; }
   cursor: pointer;
   box-shadow: 0 6px 14px rgba(0, 0, 0, .18);
 }
-.video-sound.is-on { background: var(--ink); color: #fff; }
-.video-sound:focus-visible { outline: 2px solid var(--t); outline-offset: 2px; }
+.video-cc { right: auto; left: 16px; }
+.video-sound.is-on,
+.video-cc.is-on { background: var(--ink); color: #fff; }
+.video-sound:focus-visible,
+.video-cc:focus-visible { outline: 2px solid var(--t); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) {
   .video-play svg { transition: none; }
 }
@@ -723,12 +722,15 @@ textarea::placeholder { color: #d9d9d4; }
   margin-bottom: 8px;
 }
 .footer-head--quality { margin-top: auto; padding-top: 8px; }
-.footer-office { margin-top: auto; padding-top: 16px; }
+/* Florida y los certificados comparten línea superior e inferior (48px);
+   el sello Great Place To Work sobresale hacia abajo */
+.footer-office { margin-top: auto; padding-top: 16px; box-sizing: content-box; height: 48px; line-height: 16px; }
 .footer-mail { font-weight: 300; }
 .footer-certs {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 17px;
+  height: 48px;
 }
 .footer-cert {
   width: 94px;

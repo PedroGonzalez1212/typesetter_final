@@ -234,6 +234,8 @@
       for (let b = st.F, k = 1; b < total; b += st.S, k++) bounds.push([b, st.order[k % st.order.length]]);
       if (st.end) {
         bounds = bounds.filter(b => b[0] < total - st.endLen);
+        // si el último tramo de color queda diminuto antes del final, se funde con el anterior
+        while (bounds.length > 1 && total - st.endLen - bounds[bounds.length - 1][0] < 40) bounds.pop();
         bounds.push([total - st.endLen, st.end]);
       }
       const at = l => {
@@ -753,6 +755,7 @@
     const video = $('video', videoBox);
     const playBtn = $('.video-play', videoBox);
     const soundBtn = $('.video-sound', videoBox);
+    const ccBtn = $('.video-cc', videoBox);
     const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
     let loaded = false;
     let userPaused = reduceMQ.matches;
@@ -789,6 +792,18 @@
         userPaused = true;
         video.pause();
       }
+    });
+
+    // subtítulos (CC): ocultos por defecto, el botón los activa
+    const ccTrack = video.textTracks[0];
+    if (ccTrack) ccTrack.mode = 'hidden';
+    ccBtn.addEventListener('click', () => {
+      const t = video.textTracks[0];
+      if (!t) return;
+      const on = t.mode !== 'showing';
+      t.mode = on ? 'showing' : 'hidden';
+      ccBtn.classList.toggle('is-on', on);
+      ccBtn.setAttribute('aria-pressed', String(on));
     });
 
     soundBtn.addEventListener('click', () => {
